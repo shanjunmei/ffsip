@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd   
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd"
+       default-lazy-init="false" default-autowire="byName">
+
+    <!-- 自动搜索@Controller标注的类 -->
+    <context:component-scan base-package="com.ffzx" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 开启自动切面代理 -->
+    <aop:aspectj-autoproxy/>
+
+    <!-- #################################################################### -->
+    <!-- # 装载属性占位符配置 -->
+    <!-- #################################################################### -->
+    <context:property-placeholder properties-ref="customProperties"/>
+    <bean id="customProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"
+          p:ignoreResourceNotFound="true" p:localOverride="true">
+        <property name="locations">
+            <!-- 禁止调整加载顺序(注：系统以list最后一个有效的value元素为准) -->
+            <list>
+                <!-- 标准配置-->
+                <value>classpath*:/application-web.properties</value>
+                <!--本地开发环境配置-->
+                <value>file:/d:/conf/kart/application-web.properties</value>
+                <!--服务器生产环境配置-->
+                <value>file:/etc/conf/kart/application-web.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+ -->
+    <mvc:interceptors>
+        <!-- 更改语言环境时，一个'locale'的请求参数发送  -->
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/welcome.do"/>
+            <mvc:exclude-mapping path="/*.html"/>
+            <mvc:exclude-mapping path="/User/login"/>
+            <mvc:exclude-mapping path="/User/login.do"/>
+            <mvc:exclude-mapping path="/User/logout"/>
+            <mvc:exclude-mapping path="/500.do"/>
+            <mvc:exclude-mapping path="/api/*"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/asset/**"/>
+            <mvc:exclude-mapping path="/Checktoken.do"/>
+            <mvc:exclude-mapping path="/Oauth.do"/>
+            <mvc:exclude-mapping path="/FileRepo/file.do"/>
+            <mvc:exclude-mapping path="/OpenApi/**"/>
+            <bean class="com.ffzx.common.utils.LoginInterceptor"/>
+
+        </mvc:interceptor>
+     <!--   <mvc:interceptor>
+            <mvc:mapping path="/api/*"/>
+            <mvc:exclude-mapping path="/Checktoken.do"/>
+            <mvc:exclude-mapping path="/Oauth.do"/>
+            <mvc:exclude-mapping path="/api/login.do"/>
+            <mvc:exclude-mapping path="/api/recieve.do"/>
+            <mvc:exclude-mapping path="/FileRepo/file.do"/>
+            <mvc:exclude-mapping path="/OpenApi/**"/>
+            <bean class="com.ffzx.common.utils.OauthInterceptor">
+            </bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/api/*"/>
+            <mvc:exclude-mapping path="/api/login.do"/>
+            <mvc:exclude-mapping path="/api/recieve.do"/>
+            <mvc:exclude-mapping path="/Checktoken.do"/>
+            <mvc:exclude-mapping path="/Oauth.do"/>
+            <mvc:exclude-mapping path="/FileRepo/file.do"/>
+            <mvc:exclude-mapping path="/OpenApi/**"/>
+            <bean class="com.ffzx.common.utils.ApiInterceptor"/>
+        </mvc:interceptor>-->
+    </mvc:interceptors>
+
+
+    <!-- ======================Bean Validation start============================= -->
+    <!-- 指定自己定义的validator -->
+    <mvc:annotation-driven>
+        <!-- 处理responseBody 里面日期类型 -->
+        <mvc:message-converters register-defaults="true">
+            <bean id="fastJsonHttpMessageConverter"
+                  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <value>application/json;charset=UTF-8</value>
+                </property>
+
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- Freemarker配置，参考： http://www.cnblogs.com/hoojo/archive/2011/04/19/2020551.html-->
+    <bean id="freeMarkerConfiguration"
+          class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+        <!-- 视图资源位置 -->
+        <property name="templateLoaderPath" value="/WEB-INF/views/"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">0</prop><!-- 模板更新延时 -->
+                <prop key="locale">zh_CN</prop>
+                <prop key="default_encoding">UTF-8</prop>
+                <prop key="output_encoding">UTF-8</prop>
+                <prop key="template_exception_handler">rethrow</prop>
+                <prop key="number_format">#.##</prop>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="time_format">HH:mm:ss</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="auto_import">common/spring.ftl as spring</prop>
+            </props>
+        </property>
+        <!-- 全局变量部分 -->
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="BasePath" value="${web.basepath}"/>
+                <entry key="xml_escape" value-ref="fmXmlEscape"/>
+                <!--<entry key="permission" value-ref="permissionDirective"/>
+                <entry key="data_dict" value-ref="dataDictFunction"/>-->
+            </map>
+        </property>
+    </bean>
+
+    <!-- <bean id="permissionDirective" class="com.ffzx.commerce.framework.utils.PermissionDirective"/>-->
+    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
+
+    <!-- 配置freeMarker视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer"
+          p:configuration-ref="freeMarkerConfiguration"/>
+    <bean id="ftlviewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <!-- <property name="viewClass" value="com.ffzx.commerce.framework.controller.MyFreeMarkerView"/>-->
+        <!-- 如果配置了这个节点，则视图必须是ftl，redirect等前缀都失效了 -->
+        <!-- <property name="viewNames" value="*.ftl"/> -->
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="cache" value="true"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".ftl"/>
+        <!--  property name="requestContextAttribute" value="request" / -->
+        <property name="exposeSpringMacroHelpers" value="true"/>
+    </bean>
+
+    <!-- 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <!-- 在web环境中一定要定位到classpath 否则默认到当前web应用下找  -->
+                <value>classpath:validationMessages/messages</value>
+                <value>classpath:org/hibernate/validator/ValidationMessages</value>
+            </list>
+        </property>
+        <property name="useCodeAsDefaultMessage" value="false"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="60"/>
+    </bean>
+    <!-- ======================Bean Validation end============================= -->
+
+    <!-- springmvc文件上传配置 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="104857600"></property>
+        <property name="maxInMemorySize" value="40960"></property>
+    </bean>
+
+    <!-- 定义异常解析器 -->
+    <bean id="exceptionHandler" class="com.ffzx.common.utils.GenericHandlerExceptionResolver" />
+
+
+</beans>

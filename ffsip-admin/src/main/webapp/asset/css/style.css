@@ -1,0 +1,14 @@
+@import url('font-awesome.min.css');
+
+#mask_loading{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999999999;background-color:rgba(0,0,0,0.5);}
+#mask_loading #canvasLoader{position:absolute;top:50%;left:50%;margin:-20px 0 0 -80px;}
+#mask_loading #canvasLoader::after{content:'处理中，请稍候...';color:#fff;display:inline-block;padding:10px 0 0 15px;vertical-align:top;font-weight: normal !important;}
+
+.iframeFullPage{position:fixed;top:0;right:0;left:0;z-index:10;width:100%;}
+.noScroll{overflow:hidden !important;visibility:hidden;}
+.ff_DataTable th, .ff_DataTable td{white-space:inherit;}
+th.selectAll, .clm_checkbox{text-align: center;width: 15px !important;}
+.clm_index{text-align: center; width:35px !important;}
+.input-inline-edit{border:1px solid transparent;background-color:transparent;}
+.input-inline-edit:hover{border:1px solid #d2d2d2;background-color:#fff;}
+.gray{color:#777 !important;cursor:default;}

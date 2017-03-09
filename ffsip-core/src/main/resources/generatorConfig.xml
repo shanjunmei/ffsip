@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+	<classPathEntry  location="E:\repo\mysql\mysql-connector-java\5.1.16\mysql-connector-java-5.1.16.jar"  />  
+
+  <context id="MyBatis3NoClient" targetRuntime="MyBatis3" defaultModelType="flat">
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" 
+    connectionURL="jdbc:mysql://192.168.2.196:3306/kart_db" 
+    userId="root" 
+    password="ffzx2016" />
+    <javaModelGenerator targetPackage="com.ffzx.ffsip.model" targetProject="kart-core" />
+    <sqlMapGenerator targetPackage="com.ffzx.ffsip.mapper" targetProject="kart-core" />
+    <javaClientGenerator targetPackage="com.ffzx.ffsip.mapper" targetProject="kart-core" type="XMLMAPPER" />
+    <table domainObjectName="Order"  tableName="order" >
+    </table>
+  </context>
+  
+  
+</generatorConfiguration>

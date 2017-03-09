@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="pms pms-role-list">
+<head>
+	<meta charset="utf-8">
+	<title>非凡之星管理平台</title>
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="../../../../asset/js/common/html5shiv.min.js?v=20161207115037"></script>
+		<script src="../../../../asset/js/common/respond.min.js?v=20161207115037"></script>
+	<![endif]-->
+
+	<!-- 公共样式 start 
+	<link rel="stylesheet" href="../../../../asset/css/base.min.css?v=20161207115037">
+	-->
+	<!-- v2/ui -->
+	<link rel="stylesheet" href="../../../../asset/v2/ui/css/bootstrap.css" media="screen" >
+	<link  rel="stylesheet" href="../../../../asset/v2/ui/css/style-inner.css?v=20161223-3" >
+	<link href="../../../../asset/v2/css/custom.css?v=20161226-1" rel="stylesheet" >
+	<link href="../../css/custom.css?v=20161226-1" rel="stylesheet">
+	<!-- 公共样式  end -->
+		
+	<!-- 公共js  strat -->
+	<script src="../../../../asset/js/jquery-1.10.2.min.js?v=20161207115037"></script>
+	<script src="../../../../asset/v2/js/require/require.js?v=20161222-1"></script>
+	<script src="../../../../asset/js/control/bootstrap/js/bootstrap.min.js?v=20161207115037"></script>
+	<script src="../../../../asset/js/control/ajax/js/ajaxUtils.js?v=20161207115037" type="text/javascript"></script>
+	<script src="../../../../asset/js/common/common.js?v=20161207115037"></script>
+
+	<!-- v2/ui -->
+	<script src="../../../../asset/v2/ui/js/common-inner.js?v=20161223-1"></script>
+
+	<!-- 公共js  end -->
+	<script type="text/javascript" src="../../../../asset/js/common/pageadm.js?v=20161207115037"></script>
+	<script src="../../../../asset/v2/js/util/util.js"></script>
+	<style>
+	.wrapper-html h3:first-child{margin-top:0;}
+	.wrapper-html h3:not(:first-child){margin-top:2em;}
+	</style>
+</head>
+<body class="">
+<div class="container-fluid row">
+
+	<form class="row form-inline">
+	  <div class="form-group">
+		<label>姓名</label>
+		<input type="text" >
+	  </div>
+	  <div class="form-group">
+		<label>职位</label>
+		<select>
+			<option value="">请选择...</option>
+			<option value="Java">JAVA 程序员</option>
+			<option value="Frontend">前端工程师</option>
+		</select>
+	  </div>
+	  <div class="form-group">
+		<label>城市</label>
+		<input type="text" >
+	  </div>
+	  <div class="form-group">
+		<label>分机号码</label>
+		<input type="text" >
+	  </div>
+	  <div class="form-group">
+		<label>入职日期</label>
+		<input type="text" >
+	  </div>
+	  <div class="form-group">
+		<label>薪酬</label>
+		<div>
+			<label class="checkbox-inline">
+			  <input type="checkbox" value="high"> 高
+			</label>
+			<label class="checkbox-inline">
+			  <input type="checkbox" value="mid"> 中
+			</label>
+			<label class="checkbox-inline">
+			  <input type="checkbox" value="low"> 低
+			</label>
+		</div>
+	  </div>
+	  <div class="form-group">
+		<label>性别</label>
+		<div>
+			<label class="radio-inline">
+			  <input type="radio" value="male" name="gender"> 男
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" value="female" name="gender"> 女
+			</label>
+		</div>
+	  </div>
+	  
+	  <div class="wrapper-btn">
+		<button type="button" class="btn btn-primary">查询</button>
+	  </div>
+	</form>
+
+	<div class="wrapper-component">
+		<a name="ffDataTable"></a>
+		<h3>列表查询</h3>	
+		<div class="wrapper-html">
+
+<!-- DataTable HTML -->
+
+<div id="ff_DataTable_list" class="ff_DataTable"></div>
+
+<!-- END: DataTable HTML -->
+
+		</div>
+
+		<script>$(document).ready(function(){
+
+	/*
+	Request: 
+		{
+			draw: 1,
+			start: 0,
+			length: 10						
+		}
+		
+	Response: 
+		{
+			"draw": 1,
+			"recordsTotal": 57,
+			"recordsFiltered": 57,
+			"data": [
+			{
+			  "name": "Tiger Nixon",
+			  "position": "System Architect",
+			  "salary": "$320,800",
+			  "start_date": "2011/04/25",
+			  "office": "Edinburgh",
+			  "extn": "5421"
+			},
+			{
+			  "name": "Garrett Winters",
+			  "position": "Accountant",
+			  "salary": "$170,750",
+			  "start_date": "2011/07/25",
+			  "office": "Tokyo",
+			  "extn": "8422"
+			}						
+		}
+	*/
+
+	// 注意：演示数据为“静态”的 JSON 数据，所以翻页和排序无变化
+	requirejs(['ff/init_datatable'], function(initDataTable){
+		
+		/* 列表查询 */
+		var dt_list = new initDataTable({
+			div_id: 'ff_DataTable_list',
+			url: "../../lib/datatable/js/ajax_data_init.json",
+			show_action: false,
+			columns: [
+				{ "data": "name", label: "姓名"},
+				{ "data": "position", label: "职位"},
+				{ "data": "office", label: "城市"},
+				{ "data": "extn", label: "分机号码"},
+				{ "data": "start_date", label: "入职日期"},
+				{ "data": "salary", label: "薪酬"}
+			],
+			gen_permission: function(){
+			
+				// 生成权限
+				var map = [];				
+				
+				map.push('view');
+				map.push('edit');
+				map.push('delete');
+
+				return map;		
+			},
+			clm_action: clm_action
+		});			
+	});
+
+	function clm_action(item) {
+		
+		var objAction = {
+			view: [],
+			edit: [],
+			'delete': [
+				{
+					label: '删除',
+					//href: rootPath + '/help/test/delete.do?id=' + item.id
+					class: 'gray',
+					style: 'color:red;'
+				}
+			]
+		};		
+
+		objAction['view'].push({
+			label: '查看',
+			href: "javascript:iframeFullPage('"+ rootPath + "/help/test/form.do?id=" + item.id + "')"
+		});
+		
+		objAction['edit'].push({
+			label: '编辑',
+			href: "javascript:iframeFullPage('"+ rootPath + "/help/test/form.do?id=" + item.id + "')"
+		});
+		
+		return objAction;
+	}
+
+});</script>
+
+		<div class="wrapper-btn">
+			<button id="btn_ffDataTable"  class="btn btn-warning pull-left btn-init" type="button">查看源码</button>
+		</div>
+		<div class="wrapper-ref">
+			Ref: <a href="https://www.datatables.net/examples/" target="_blank">https://www.datatables.net/examples/</a>
+			<br />
+			<a href="https://datatables.net/reference/api/ajax.url%28%29.load%28%29" target="_blank">通过 AJAX 载入新数据</a>
+			<br />
+			<a href="http://datatables.club/" target="_blank">Datatables 中文网</a>
+		</div>
+
+	</div>
+</div>
+<script src="../../../../asset/js/common/loadingffzx.js?v=20161207115037"></script>
+<script src="../../js/util/prettify/run_prettify.js?autoload=false&skin=desert" defer="defer"></script>
+</body>
+</html>

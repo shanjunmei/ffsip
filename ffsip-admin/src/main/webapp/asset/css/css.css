@@ -1,0 +1,29 @@
+.centerbody{width: 500px; margin-left: 30px; font-size: 14px;}
+.tips-form{text-align: center; color:red;}
+.verification-title{font-size: 26px; font-family: "微软雅黑"; text-align: center;}
+.order-ul{padding: 0; margin: 10px 0; overflow:hidden;}
+.order-ul li{list-style: none;}
+.order-ul li>label{display: inline-block;}
+.order-ul li>div{display: inline-block;}
+.order-ul li input[class="text-block"]{box-shadow: none;}
+.order-ul li input[class="text-block"]:hover{box-shadow: none;background-color: #fff;}
+.order-ul.bgGray input[class="text-block"]{background-color: #f1f1f1;}
+.order-ul.bgGray input[class="text-block"]:hover{background-color: #f1f1f1;}
+.order-ul .wrapper-btn{text-align: center;}
+.bgGray{background-color: #f0f0f0; border: 1px solid #ccc; padding: 10px;}
+.bor1{border-bottom: 1px dashed #ccc;}
+.centerbody2{width: 560px; margin-left: 30px; overflow:hidden;}
+.order-ul select{width: 120px; border: 1px solid #ccc;}
+.order-tab{width:100%; text-align:center}
+.order-tab th{text-align: center; font-size: 14px;}
+.order-tab td input{margin:5px 2% 5px 0; width:98%;text-align: center; border: 1px solid #ccc; box-shadow:none;}
+.tips2{color:red; text-align:right; border-bottom: 1px solid #ccc; padding-bottom:10px;}
+.optional-car h3{font-size: 16px; font-weight:normal}
+.optional-ul{overflow: hidden; margin:0; padding:0}
+.optional-ul li,.tips3 li div{margin: 10px 10px 0 0; border: 1px solid #3399ff; background-color: #fff; float: left; width: 46px; height:25px; line-height:25px; border-radius: 10px; list-style: none;text-align: center;}
+.optional-ul li.on{border: 1px solid #3399ff; background-color: #3399ff; color:#fff}
+.optional-ul li.disabled,.tips3 li div.disabled{border: 1px solid #ccc; background-color: #f2f2f2;}
+.tips3{margin-top:50px;}
+.tips3 ul{padding:0}
+.tips3 li div{display: inline-block; vertical-align:middle; float:none; margin:0 10px 0 0;}
+.tips3 li{list-style:none; height:27px; margin:10px 0}

@@ -1,0 +1,2 @@
+李淼淼:主要提供业务实现,主要包含dao接口,service接口及service实现类,以及操作表的xml配置文件和xml对应的bean类1
+依赖关系：spring mysql mybatis pingxx

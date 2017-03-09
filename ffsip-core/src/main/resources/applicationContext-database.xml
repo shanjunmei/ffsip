@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx.xsd"
+       default-lazy-init="true">
+
+    <!-- 开启注解事务支持 -->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSourcejdbc"/>
+    </bean>
+
+    <!-- 会自动将basePackage中配置的包路径下的所有带有@Mapper标注的接口生成代理类，实现数据访问 -->
+   <!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"/>
+        <property name="basePackage" value="com/ffzx/ffsip/mapper"/>
+    </bean>-->
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate" />
+        <property name="basePackage" value="com/ffzx/ffsip/mapper" />
+    </bean>
+    <!--定义 sqlSessionTemplate -->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0">
+            <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+                <property name="dataSource" ref="dataSourcejdbc"></property>
+                <property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+            </bean>
+        </constructor-arg>
+        <constructor-arg index="1" value="SIMPLE"/>
+        <constructor-arg index="2">
+            <null/>
+        </constructor-arg>
+    </bean>
+
+    <!-- 配置数据源 druid连接池 -->
+    <bean id="abstractDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close" abstract="true">
+        <!-- <property name="url" value="${jdbc.url}" /> -->
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${druid.initialSize}"/>
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${druid.maxActive}"/>
+        <!-- 连接池最大空闲 -->
+        <property name="maxIdle" value="${druid.maxIdle}"/>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${druid.minIdle}"/>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${druid.maxWait}"/>
+
+        <!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+
+        <property name="validationQuery" value="${druid.validationQuery}"/>
+        <property name="testOnBorrow" value="${druid.testOnBorrow}"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="testWhileIdle" value="true"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="25200000"/>
+
+        <!-- 打开removeAbandoned功能 -->
+        <property name="removeAbandoned" value="true"/>
+        <!-- 1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="1800"/>
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true"/>
+
+        <!-- 监控数据库 -->
+        <!-- <property name="filters" value="stat" /> -->
+        <property name="filters" value="mergeStat"/>
+    </bean>
+    <bean id="dataSourcejdbc" class="com.ffzx.commerce.framework.dao.DynamicRoutingDataSource">
+        <property name="defaultTargetDataSource">
+            <bean parent="abstractDataSource" p:url="${jdbc.url.slave}"/>
+        </property>
+        <property name="targetDataSources">
+            <map key-type="java.lang.String" value-type="javax.sql.DataSource">
+                <entry key="#{T(com.ffzx.commerce.framework.dao.DynamicRoutingDataSource).MASTER_DATA_SOURCE}">
+                    <bean parent="abstractDataSource" p:url="${jdbc.url.master}"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+</beans>

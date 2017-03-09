@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- #################################################################### -->
+    <!-- # 自定义属性设置 -->
+    <!-- #################################################################### -->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingBean">
+        <property name="staticMethod">
+            <value>org.springframework.util.CollectionUtils.mergePropertiesIntoMap</value>
+        </property>
+        <property name="arguments">
+            <array>
+                <ref bean="customProperties"/>
+                <ref bean="systemProperties"/>
+            </array>
+        </property>
+    </bean>
+
+    <!-- 通过BeanFactoryAware，手动从spring容器获取bean -->
+    <bean class="com.ffzx.commerce.framework.utils.SpringContextHolder" lazy-init="false"/>
+
+
+
+</beans>
+
+

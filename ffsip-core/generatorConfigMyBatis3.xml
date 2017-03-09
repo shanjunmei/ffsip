@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC
+ "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+ "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <properties url="file:///D:/code/damaichang_new/pms/pms-core/src/main/resources/application-core.properties"/>
+  
+  <classPathEntry location="E:/repo/mysql/mysql-connector-java/5.1.30/mysql-connector-java-5.1.30.jar" />
+  
+  <!-- This should cause an error because sqlMapGenerator is required
+       if there is no javaClientGenerator -->
+  <context id="MyBatis3NoClient" targetRuntime="MyBatis3" defaultModelType="flat">
+    <!-- <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" /> -->
+	
+	<commentGenerator type="org.mybatis.generator.ext.MyCommentGenerator">
+		<property name="suppressAllComments" value="false" />
+	</commentGenerator>
+
+	<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.1.194:3306/pms_db?useUnicode=true&amp;characterEncoding=utf-8"
+			userId="root" password="ffzx2015" />
+	
+    <javaModelGenerator targetPackage="com.ffzx.${generator.model}.model"
+        targetProject="pms-core">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+      <property name="rootClass" value="com.ffzx.commerce.framework.common.persistence.DataEntity"/>
+    </javaModelGenerator>
+	
+	<sqlMapGenerator targetPackage="com.ffzx.${generator.model}.mapper"
+   		targetProject="pms-core/src/main/resources" />
+   		
+	<javaClientGenerator type="XMLMAPPER" targetPackage="com.ffzx.${generator.model}.mapper"
+     	targetProject="pms-core" interfaceExtendSupInterface="com.ffzx.commerce.framework.dao.CrudMapper"
+     	mapperScanAnnotation="com.ffzx.commerce.framework.annotation.MyBatisDao">
+    </javaClientGenerator>
+	
+	<javaServiceGenerator targetPackage="com.ffzx.${generator.model}.service"
+		targetProject="pms-core" interfaceExtendSupInterface="com.ffzx.commerce.framework.service.BaseCrudService"
+		extendSupClass="com.ffzx.commerce.framework.service.impl.BaseCrudServiceImpl" /> 
+	
+    <tableSetting isSchema="true" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false">
+		<prop name="replaceTablePrefix">
+			<list>
+				<prefix name="" value="" />
+			</list>
+		</prop>
+		<!-- 忽略schema，避免在xml中出现schema.表名 -->
+		<prop name="ignoreGeneratorSchema" value="true" />
+	</tableSetting>
+  </context>
+
+</generatorConfiguration>

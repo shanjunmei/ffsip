@@ -1,0 +1,12 @@
+body{overflow-x:hidden;}	
+.wrapper-component{padding-bottom:50px;margin-bottom:50px;border-bottom:1px dashed #ff4848;}
+.wrapper-html, .wrapper-component > h3{margin-bottom:20px;}
+.wrapper-html,.wrapper-btn{float:left;width:100%;}
+h1{font-size:30px;}
+h2{margin-bottom:30px;font-size:24px;}
+h3{font-size:22px;}
+.nav-tabs,.wrapper-btn{margin-bottom:20px;float:left;width:100%;}	
+textarea.copy-html{height:12em;margin-top:20px;}
+pre{min-height:12em;margin-top:20px;}
+.wrapper-ref{margin-top:20px;}
+.alert-success{margin:0 15px 0 15px;margin-bottom:0;padding:6px 12px;display:none;}

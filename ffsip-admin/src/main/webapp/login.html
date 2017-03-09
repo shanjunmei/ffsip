@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html class="kart">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>非凡之星管理平台</title>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="asset/js/common/html5shiv.min.js?v=20161207115037"></script>
+		<script src="asset/js/common/respond.min.js?v=20161207115037"></script>
+	<![endif]-->
+
+	<!-- 公共样式 start  -->
+	<link rel="stylesheet" href="asset/css/base.min.css?v=20161207115037">
+	<link rel="stylesheet" href="asset/css/index.css?v=1">
+	<link rel="stylesheet" href="asset/js/control/artDialog-6.0.4/css/ui-dialog.css?v=20161207115037">
+	<link rel="stylesheet" href="asset/css/style.css?v=20161222">
+
+	<!-- v2/ui -->
+	<link rel="stylesheet" href="asset/v2/ui/css/bootstrap.css" media="screen" >
+	<link  rel="stylesheet" href="asset/v2/ui/css/style-inner.css?v=20161223-3" >
+	<!-- 公共样式  end -->
+
+	<!-- 公共js  strat -->
+	<script src="asset/js/jquery-1.10.2.min.js?v=20161207115037"></script>
+	<script src="asset/v2/js/require/require.js?v=20161222-1"></script>
+	<script src="asset/js/control/bootstrap/js/bootstrap.min.js?v=20161207115037"></script>
+	<script src="asset/js/control/artDialog-6.0.4/dist/dialog-plus.js?v=20161207115037"></script>
+	<script src="asset/js/control/artDialog-6.0.4/dialogUtils.js?v=20161207115037"></script>
+	<script src="asset/js/control/ajax/js/ajaxUtils.js?v=20161207115037" type="text/javascript"></script>
+	<script src="asset/js/common/common.js?v=20161207115037"></script>
+
+	<!-- v2/ui -->
+	<script src="asset/v2/ui/js/common-inner.js?v=20161223-1"></script>
+
+	<!-- 公共js  end -->
+	<script type="text/javascript" src="asset/js/common/pageadm.js?v=20161207115037"></script>
+	<script type="text/javascript">
+		var version = "20161207115037";
+	</script>
+
+</head>
+<body class="hold-transition login-page">
+
+	<div class="content-wrapper">
+		<div class="login-box">
+		  <div class="login-logo"><h4>非凡之星管理平台</h4></div>
+		  <div class="box-shadow login-box-body">
+			<p class="login-box-msg">登录，开启你的非凡之旅！</p>
+
+			<form action="User/login.do" method="post">
+			  <div class="form-group has-feedback">
+				<input class="form-control" name="code" placeholder="账号" type="text">
+				<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+			  </div>
+			  <div class="form-group has-feedback">
+				<input class="form-control" name="password" placeholder="密码" type="password">
+				<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+			  </div>
+			  <div class="row">
+				<div class="col-xs-8">
+					<div class="checkbox">
+						<label><input type="checkbox" value="" /> 记住我一周</label>
+					</div>
+				</div>
+
+				<div class="col-xs-4">
+				  <button onclick="login()" type="button" class="btn btn-primary btn-block btn-flat">登录</button>
+				</div>
+
+			  </div>
+			</form>
+
+		<!--	<div class="wrapper-btn">
+			<a href="###" class="pull-left">忘记密码</a>
+			<a href="register.html" class="pull-right">注册</a>
+			</div>-->
+			<!--
+			<div class="social-auth-links text-center">
+			   <p>- OR -</p>
+			  <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
+				Facebook</a>
+			  <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
+				Google+</a>
+			</div>
+			-->
+
+			<!-- /.social-auth-links -->
+
+		  </div>
+		  <!-- /.login-box-body -->
+		</div>
+
+	</div>
+	<script type="text/javascript">
+		function login () {
+			debugger;
+			var form=document.forms[0];
+			var url=form.action;
+			var code=$("input[name='code']").val();
+			var password=$("input[name='password']").val();
+			var data={"code":code,"password":password};
+			$.frontEngineAjax.executeAjaxPost(url, data, function(res){
+				console.log(res)
+				if(res){
+					window.location.href='index.html';
+				}else{
+					$.frontEngineDialog.executeDialogContent('提示','用户名或密码错误');
+				}
+			},function (res) {
+
+				console.log(res);
+				debugger;
+
+			});
+		}
+
+	</script>
+<!--<script src="asset/js/common/loadingffzx.js?v=20161207115037"></script>-->
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html class="pms pms-role-list">
+<head>
+	<meta charset="utf-8">
+	<title>非凡之星管理平台</title>
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="../../../../asset/js/common/html5shiv.min.js?v=20161207115037"></script>
+		<script src="../../../../asset/js/common/respond.min.js?v=20161207115037"></script>
+	<![endif]-->
+
+	<!-- 公共样式 start 
+	<link rel="stylesheet" href="../../../../asset/css/base.min.css?v=20161207115037">
+	-->
+	<!-- v2/ui -->
+	<link rel="stylesheet" href="../../../../asset/v2/ui/css/bootstrap.css" media="screen" >
+	<link  rel="stylesheet" href="../../../../asset/v2/ui/css/style-inner.css?v=20161223-3" >
+	<link href="../../../../asset/v2/css/custom.css?v=20161226-1" rel="stylesheet" >
+	<link href="../../css/custom.css?v=20161226-1" rel="stylesheet">
+	<!-- 公共样式  end -->
+		
+	<!-- 公共js  strat -->
+	<script src="../../../../asset/js/jquery-1.10.2.min.js?v=20161207115037"></script>
+	<script src="../../../../asset/v2/js/require/require.js?v=20161222-1"></script>
+	<script src="../../../../asset/js/control/bootstrap/js/bootstrap.min.js?v=20161207115037"></script>
+	<script src="../../../../asset/js/control/ajax/js/ajaxUtils.js?v=20161207115037" type="text/javascript"></script>
+	<script src="../../../../asset/js/common/common.js?v=20161207115037"></script>
+
+	<!-- v2/ui -->
+	<script src="../../../../asset/v2/ui/js/common-inner.js?v=20161223-1"></script>
+
+	<!-- 公共js  end -->
+	<script type="text/javascript" src="../../../../asset/js/common/pageadm.js?v=20161207115037"></script>
+	<script src="../../../../asset/v2/js/util/util.js"></script>
+	<style>
+	.wrapper-html h3:first-child{margin-top:0;}
+	.wrapper-html h3:not(:first-child){margin-top:2em;}
+	</style>
+</head>
+<body class="">
+<div class="container-fluid row">	
+
+	<form class="form-horizontal">
+		<fieldset>
+		  <legend>编辑页</legend>
+		  <div class="form-group">
+			<label>姓名</label>
+			<div>
+			  <input placeholder="必填" type="text">
+			</div>
+		  </div>
+		  
+		  <div class="form-group">
+			<label>职位</label>
+			<div>
+				<select>
+					<option value="">请选择...</option>
+					<option value="Java">JAVA 程序员</option>
+					<option value="Frontend">前端工程师</option>
+				</select>
+			</div>
+		  </div>
+		  
+		  <div class="form-group">
+			<label>性别</label>
+			<div>
+				<label class="radio-inline">
+				  <input name="gender" value="male" checked="" type="radio">
+				  男
+				</label>
+				<label class="radio-inline">
+				  <input name="gender" value="female" type="radio">
+				  女
+				</label>
+			</div>
+		  </div>
+		  
+		  <div class="form-group">
+			<label>薪酬</label>
+			<div>
+				<label class="checkbox-inline">
+				  <input type="checkbox" value="high"> 高
+				</label>
+				<label class="checkbox-inline">
+				  <input type="checkbox" value="mid"> 中
+				</label>
+				<label class="checkbox-inline">
+				  <input type="checkbox" value="low"> 低
+				</label>
+			</div>
+		  </div>
+		  
+		  <div class="form-group">
+			<label>简介</label>
+			<div>
+			  <textarea rows="3"></textarea>
+			  <span class="help-block">此处放帮助/说明文字，单行或多行。</span>
+			</div>
+		  </div>
+		  
+		  <div class="form-group">
+			<label>简介（富文本编辑器）</label>
+			<div>
+			  <script id="ue_intro" class="ueditor">非必填项</script>
+			</div>
+		  </div>
+		  
+		  <div class="form-group">
+			<div class="wrapper-btn">
+			  <button type="submit" class="btn btn-primary">提交</button>
+			  <button type="button" class="btn btn-default btn-close-iframeFullPage">取消</div>
+			</div>
+		  </div>
+		</fieldset>
+	  </form>	
+</div>
+<script>
+
+	ffzx.init.ueditor();
+	
+	/*
+	setTimeout(function(){
+		var ue_intro = ffzx.ueditor['ue_intro'];
+		
+		//对编辑器的操作最好在编辑器ready之后再做
+		ue_intro.ready(function() {
+		
+			//设置编辑器的内容
+			//ue_intro.setContent('非必填项');
+			
+			//获取html内容，返回: <p>非必填项</p>
+			var html = ue_intro.getContent();
+			console.log(html);
+			
+			//获取纯文本内容，返回: 非必填项
+			var txt = ue_intro.getContentTxt();
+			console.log(txt);
+		});
+	}, 500);
+	*/
+
+</script>
+<script src="../../../../asset/js/common/loadingffzx.js?v=20161207115037"></script>
+<script src="../../js/util/prettify/run_prettify.js?autoload=false&skin=desert" defer="defer"></script>
+</body>
+</html>

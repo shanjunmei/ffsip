@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html class="pms pms-role-list">
+<head>
+	<meta charset="utf-8">
+	<title>非凡之星管理平台</title>
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="../../../../asset/js/common/html5shiv.min.js?v=20161207115037"></script>
+		<script src="../../../../asset/js/common/respond.min.js?v=20161207115037"></script>
+	<![endif]-->
+
+	<!-- 公共样式 start  -->
+	<link rel="stylesheet" href="../../../../asset/css/base.min.css?v=20161207115037">
+	<link rel="stylesheet" href="../../../../asset/js/control/artDialog-6.0.4/css/ui-dialog.css?v=20161207115037">
+	<link rel="stylesheet" href="../../../../asset/css/style.css?v=20161222">
+
+	<!-- v2/ui -->
+	<link rel="stylesheet" href="../../../../asset/v2/ui/css/bootstrap.css" media="screen" >
+	<link  rel="stylesheet" href="../../../../asset/v2/ui/css/style-inner.css?v=20161207115037" >
+	<!-- 公共样式  end -->
+		
+	<!-- 公共js  strat -->
+	<script src="../../../../asset/js/jquery-1.10.2.min.js?v=20161207115037"></script>
+	<script src="../../../../asset/v2/js/require/require.js?v=20161222-1"></script>
+	<script src="../../../../asset/js/control/bootstrap/js/bootstrap.min.js?v=20161207115037"></script>
+	<script src="../../../../asset/js/control/artDialog-6.0.4/dist/dialog-plus.js?v=20161207115037"></script>
+	<script src="../../../../asset/js/control/artDialog-6.0.4/dialogUtils.js?v=20161207115037"></script>
+	<script src="../../../../asset/js/control/ajax/js/ajaxUtils.js?v=20161207115037" type="text/javascript"></script>
+	<script src="../../../../asset/js/common/common.js?v=20161207115037"></script>
+
+	<!-- v2/ui -->
+	<script src="../../../../asset/v2/ui/js/common-inner.js?v=20161222-3"></script>
+
+	<!-- 公共js  end -->
+	<script type="text/javascript" src="../../../../asset/js/common/pageadm.js?v=20161207115037"></script>
+	<script type="text/javascript">
+		var version = "20161207115037";
+	</script>
+
+</head>
+<body>
+
+	<div class="content-wrapper">
+		<section class="sec-content">
+			<div class="row">
+				<div class="col-lg-3 col-xs-6">
+				  <!-- small box -->
+				  <div class="small-box bg-aqua">
+					<div class="inner">
+					  <h3>150</h3>
+
+					  <p>新订单</p>
+					</div>
+					<div class="icon">
+					  <i class="glyphicon glyphicon-shopping-cart"></i>
+					</div>
+					<a href="#" class="small-box-footer">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+				  </div>
+				</div>
+				<!-- ./col -->
+				<div class="col-lg-3 col-xs-6">
+				  <!-- small box -->
+				  <div class="small-box bg-green">
+					<div class="inner">
+					  <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+					  <p>回访率</p>
+					</div>
+					<div class="icon">
+					  <i class="glyphicon glyphicon-signal"></i>
+					</div>
+					<a href="#" class="small-box-footer">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+				  </div>
+				</div>
+				<!-- ./col -->
+				<div class="col-lg-3 col-xs-6">
+				  <!-- small box -->
+				  <div class="small-box bg-yellow">
+					<div class="inner">
+					  <h3>44</h3>
+
+					  <p>新用户</p>
+					</div>
+					<div class="icon">
+					  <i class="glyphicon glyphicon-user"></i>
+					</div>
+					<a href="#" class="small-box-footer">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+				  </div>
+				</div>
+				<!-- ./col -->
+				<div class="col-lg-3 col-xs-6">
+				  <!-- small box -->
+				  <div class="small-box bg-red">
+					<div class="inner">
+					  <h3>65</h3>
+
+					  <p>新访客</p>
+					</div>
+					<div class="icon">
+					  <i class="glyphicon glyphicon-leaf"></i>
+					</div>
+					<a href="#" class="small-box-footer">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+				  </div>
+				</div>
+				<!-- ./col -->
+			</div>
+			
+			<div class="row">
+				<section class="col-lg-7">
+					<div class="panel panel-default">
+					  <div class="panel-heading">访问统计</div>
+					  <div class="panel-body">
+						<div id="chart_visit" class="wrapper-chart"></div>
+					  </div>
+					</div>
+					
+					<div class="panel panel-default">
+					  <div class="panel-heading">用户统计</div>
+					  <div class="panel-body">
+						<div id="chart_user" class="wrapper-chart"></div>
+					  </div>
+					</div>
+					
+					<div class="panel panel-default">
+					  <div class="panel-heading">按月统计</div>
+					  <div class="panel-body no-padding">
+						<table class="table table-hover no-margin">
+						  <thead>
+							<tr>
+							  <th>#</th>
+							  <th>Column heading</th>
+							  <th>Column heading</th>
+							  <th>Column heading</th>
+							</tr>
+						  </thead>
+						  <tbody>
+							<tr class="active">
+							  <td>1</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							</tr>
+							<tr>
+							  <td>2</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							</tr>
+							<tr class="success">
+							  <td>3</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							</tr>
+							<tr>
+							  <td>4</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							</tr>
+							<tr class="info-">
+							  <td>5</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							</tr>
+							<tr>
+							  <td>6</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							</tr>
+							<tr class="warning-">
+							  <td>7</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							</tr>
+							<tr>
+							  <td>8</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							</tr>
+							<tr class="danger-">
+							  <td>9</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							  <td>Column content</td>
+							</tr>
+						  </tbody>
+						</table>
+					  </div>
+					</div>
+				</section>
+				
+				<section class="col-lg-5">
+					<div class="panel panel-default">
+					  <div class="panel-heading">销售数量</div>
+					  <div class="panel-body">
+						<div id="chart_china_map" class="wrapper-chart"></div>
+					  </div>
+					</div>
+					
+					<div class="panel panel-default">
+					  <div class="panel-heading">订单统计</div>
+					  <div class="panel-body">
+						<div id="chart_order" class="wrapper-chart"></div>
+					  </div>
+					</div>
+					
+					<div class="panel panel-default">
+					  <div class="panel-heading">计划进度</div>
+					  <div class="panel-body no-padding">
+						<table class="table table-hover no-margin">
+							<tbody><tr>
+							  <th style="width: 10px">#</th>
+							  <th>Task</th>
+							  <th>Progress</th>
+							  <th style="width: 40px">Label</th>
+							</tr>
+							<tr>
+							  <td>1.</td>
+							  <td>Update software</td>
+							  <td>
+								<div class="progress progress-xs">
+								  <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+								</div>
+							  </td>
+							  <td><span class="badge bg-red">55%</span></td>
+							</tr>
+							<tr>
+							  <td>2.</td>
+							  <td>Clean database</td>
+							  <td>
+								<div class="progress progress-xs">
+								  <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+								</div>
+							  </td>
+							  <td><span class="badge bg-yellow">70%</span></td>
+							</tr>
+							<tr>
+							  <td>3.</td>
+							  <td>Cron job running</td>
+							  <td>
+								<div class="progress progress-xs progress-striped active">
+								  <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
+								</div>
+							  </td>
+							  <td><span class="badge bg-light-blue">30%</span></td>
+							</tr>
+							<tr>
+							  <td>4.</td>
+							  <td>Fix and squish bugs</td>
+							  <td>
+								<div class="progress progress-xs progress-striped active">
+								  <div class="progress-bar progress-bar-success" style="width: 90%"></div>
+								</div>
+							  </td>
+							  <td><span class="badge bg-green">90%</span></td>
+							</tr>
+							<tr>
+							  <td>5.</td>
+							  <td>Clean database</td>
+							  <td>
+								<div class="progress progress-xs">
+								  <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+								</div>
+							  </td>
+							  <td><span class="badge bg-yellow">70%</span></td>
+							</tr>
+							<tr>
+							  <td>6.</td>
+							  <td>Cron job running</td>
+							  <td>
+								<div class="progress progress-xs progress-striped active">
+								  <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
+								</div>
+							  </td>
+							  <td><span class="badge bg-light-blue">30%</span></td>
+							</tr>
+							<tr>
+							  <td>7.</td>
+							  <td>Fix and squish bugs</td>
+							  <td>
+								<div class="progress progress-xs progress-striped active">
+								  <div class="progress-bar progress-bar-success" style="width: 90%"></div>
+								</div>
+							  </td>
+							  <td><span class="badge bg-green">90%</span></td>
+							</tr>
+							<tr>
+							  <td>8.</td>
+							  <td>Clean database</td>
+							  <td>
+								<div class="progress progress-xs">
+								  <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+								</div>
+							  </td>
+							  <td><span class="badge bg-yellow">70%</span></td>
+							</tr>
+							<tr>
+							  <td>9.</td>
+							  <td>Cron job running</td>
+							  <td>
+								<div class="progress progress-xs progress-striped active">
+								  <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
+								</div>
+							  </td>
+							  <td><span class="badge bg-light-blue">30%</span></td>
+							</tr>
+						  </tbody></table>
+					  </div>
+					</div>
+				</section>
+
+				<section class="col-lg-12">
+					<div class="box">
+						<div class="box-header">
+						  <h3 class="box-title">活跃用户</h3>
+
+						  <div class="box-tools">
+							<div class="input-group input-group-sm" style="width: 240px;">
+							  <input name="table_search" class="form-control pull-right" placeholder="搜索..." type="text">
+
+							  <div class="input-group-btn">
+								<button type="submit" class="btn btn-default no-shadow"><i class="fa fa-search"></i></button>
+							  </div>
+							</div>
+						  </div>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body table-responsive no-padding">
+						  <table class="table table-hover">
+							<tbody><tr>
+							  <th>ID</th>
+							  <th>User</th>
+							  <th>Date</th>
+							  <th>Status</th>
+							  <th>Reason</th>
+							</tr>
+							<tr>
+							  <td>183</td>
+							  <td>John Doe</td>
+							  <td>11-7-2014</td>
+							  <td><span class="label label-success">Approved</span></td>
+							  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+							</tr>
+							<tr>
+							  <td>219</td>
+							  <td>Alexander Pierce</td>
+							  <td>11-7-2014</td>
+							  <td><span class="label label-warning">Pending</span></td>
+							  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+							</tr>
+							<tr>
+							  <td>657</td>
+							  <td>Bob Doe</td>
+							  <td>11-7-2014</td>
+							  <td><span class="label label-primary">Approved</span></td>
+							  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+							</tr>
+							<tr>
+							  <td>175</td>
+							  <td>Mike Doe</td>
+							  <td>11-7-2014</td>
+							  <td><span class="label label-danger">Denied</span></td>
+							  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+							</tr>
+						  </tbody></table>
+						</div>
+						<!-- /.box-body -->
+					  </div>
+				</section>
+				
+			</div>			
+			
+		</section>
+
+	</div>
+	<script>
+	requirejs(['echarts', 'echarts/map/china'], function(){
+		var chart_opt_visit = {
+			tooltip : {
+				trigger: 'axis',
+				axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+					type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+				}
+			},
+			legend: {
+				data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎','百度','谷歌','必应','其他']
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true
+			},
+			xAxis : [
+				{
+					type : 'category',
+					data : ['周一','周二','周三','周四','周五','周六','周日']
+				}
+			],
+			yAxis : [
+				{
+					type : 'value'
+				}
+			],
+			series : [
+				{
+					name:'直接访问',
+					type:'bar',
+					data:[320, 332, 301, 334, 390, 330, 320]
+				},
+				{
+					name:'邮件营销',
+					type:'bar',
+					stack: '广告',
+					data:[120, 132, 101, 134, 90, 230, 210]
+				},
+				{
+					name:'联盟广告',
+					type:'bar',
+					stack: '广告',
+					data:[220, 182, 191, 234, 290, 330, 310]
+				},
+				{
+					name:'视频广告',
+					type:'bar',
+					stack: '广告',
+					data:[150, 232, 201, 154, 190, 330, 410]
+				},
+				{
+					name:'搜索引擎',
+					type:'bar',
+					data:[862, 1018, 964, 1026, 1679, 1600, 1570],
+					markLine : {
+						lineStyle: {
+							normal: {
+								type: 'dashed'
+							}
+						},
+						data : [
+							[{type : 'min'}, {type : 'max'}]
+						]
+					}
+				},
+				{
+					name:'百度',
+					type:'bar',
+					barWidth : 5,
+					stack: '搜索引擎',
+					data:[620, 732, 701, 734, 1090, 1130, 1120]
+				},
+				{
+					name:'谷歌',
+					type:'bar',
+					stack: '搜索引擎',
+					data:[120, 132, 101, 134, 290, 230, 220]
+				},
+				{
+					name:'必应',
+					type:'bar',
+					stack: '搜索引擎',
+					data:[60, 72, 71, 74, 190, 130, 110]
+				},
+				{
+					name:'其他',
+					type:'bar',
+					stack: '搜索引擎',
+					data:[62, 82, 91, 84, 109, 110, 120]
+				}
+			]
+		};
+		
+		var chart_opt_china_map = {
+			title: {
+				//text: '',
+				//subtext: '演示数据',
+				left: 'center'
+			},
+			tooltip: {
+				trigger: 'item'
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data:['小米','华为','苹果']
+			},
+			visualMap: {
+				min: 0,
+				max: 2500,
+				left: 'left',
+				top: 'bottom',
+				text: ['高','低'],           // 文本，默认为数值文本
+				calculable: true
+			},
+			toolbox: {
+				show: true,
+				orient: 'vertical',
+				left: 'right',
+				top: 'center',
+				feature: {
+					dataView: {readOnly: false},
+					restore: {},
+					saveAsImage: {}
+				}
+			},
+			series: [
+				{
+					name: '小米',
+					type: 'map',
+					mapType: 'china',
+					roam: false,
+					label: {
+						normal: {
+							show: true
+						},
+						emphasis: {
+							show: true
+						}
+					},
+					data:[
+						{name: '北京',value: ffzx.util.randomNum() },
+						{name: '天津',value: ffzx.util.randomNum() },
+						{name: '上海',value: ffzx.util.randomNum() },
+						{name: '重庆',value: ffzx.util.randomNum() },
+						{name: '河北',value: ffzx.util.randomNum() },
+						{name: '河南',value: ffzx.util.randomNum() },
+						{name: '云南',value: ffzx.util.randomNum() },
+						{name: '辽宁',value: ffzx.util.randomNum() },
+						{name: '黑龙江',value: ffzx.util.randomNum() },
+						{name: '湖南',value: ffzx.util.randomNum() },
+						{name: '安徽',value: ffzx.util.randomNum() },
+						{name: '山东',value: ffzx.util.randomNum() },
+						{name: '新疆',value: ffzx.util.randomNum() },
+						{name: '江苏',value: ffzx.util.randomNum() },
+						{name: '浙江',value: ffzx.util.randomNum() },
+						{name: '江西',value: ffzx.util.randomNum() },
+						{name: '湖北',value: ffzx.util.randomNum() },
+						{name: '广西',value: ffzx.util.randomNum() },
+						{name: '甘肃',value: ffzx.util.randomNum() },
+						{name: '山西',value: ffzx.util.randomNum() },
+						{name: '内蒙古',value: ffzx.util.randomNum() },
+						{name: '陕西',value: ffzx.util.randomNum() },
+						{name: '吉林',value: ffzx.util.randomNum() },
+						{name: '福建',value: ffzx.util.randomNum() },
+						{name: '贵州',value: ffzx.util.randomNum() },
+						{name: '广东',value: ffzx.util.randomNum() },
+						{name: '青海',value: ffzx.util.randomNum() },
+						{name: '西藏',value: ffzx.util.randomNum() },
+						{name: '四川',value: ffzx.util.randomNum() },
+						{name: '宁夏',value: ffzx.util.randomNum() },
+						{name: '海南',value: ffzx.util.randomNum() },
+						{name: '台湾',value: ffzx.util.randomNum() },
+						{name: '香港',value: ffzx.util.randomNum() },
+						{name: '澳门',value: ffzx.util.randomNum() }
+					]
+				},
+				{
+					name: '华为',
+					type: 'map',
+					mapType: 'china',
+					label: {
+						normal: {
+							show: true
+						},
+						emphasis: {
+							show: true
+						}
+					},
+					data:[
+						{name: '北京',value: ffzx.util.randomNum() },
+						{name: '天津',value: ffzx.util.randomNum() },
+						{name: '上海',value: ffzx.util.randomNum() },
+						{name: '重庆',value: ffzx.util.randomNum() },
+						{name: '河北',value: ffzx.util.randomNum() },
+						{name: '安徽',value: ffzx.util.randomNum() },
+						{name: '新疆',value: ffzx.util.randomNum() },
+						{name: '浙江',value: ffzx.util.randomNum() },
+						{name: '江西',value: ffzx.util.randomNum() },
+						{name: '山西',value: ffzx.util.randomNum() },
+						{name: '内蒙古',value: ffzx.util.randomNum() },
+						{name: '吉林',value: ffzx.util.randomNum() },
+						{name: '福建',value: ffzx.util.randomNum() },
+						{name: '广东',value: ffzx.util.randomNum() },
+						{name: '西藏',value: ffzx.util.randomNum() },
+						{name: '四川',value: ffzx.util.randomNum() },
+						{name: '宁夏',value: ffzx.util.randomNum() },
+						{name: '香港',value: ffzx.util.randomNum() },
+						{name: '澳门',value: ffzx.util.randomNum() }
+					]
+				},
+				{
+					name: '苹果',
+					type: 'map',
+					mapType: 'china',
+					label: {
+						normal: {
+							show: true
+						},
+						emphasis: {
+							show: true
+						}
+					},
+					data:[
+						{name: '北京',value: ffzx.util.randomNum() },
+						{name: '天津',value: ffzx.util.randomNum() },
+						{name: '上海',value: ffzx.util.randomNum() },
+						{name: '广东',value: ffzx.util.randomNum() },
+						{name: '台湾',value: ffzx.util.randomNum() },
+						{name: '香港',value: ffzx.util.randomNum() },
+						{name: '澳门',value: ffzx.util.randomNum() }
+					]
+				}
+			]
+		};
+		
+		var chart_opt_user = option = {
+			title: {
+				//text: '堆叠区域图'
+			},
+			tooltip : {
+				trigger: 'axis'
+			},
+			legend: {
+				data:['邮件营销用户','联盟广告用户','视频广告用户','直接访问用户','搜索引擎用户']
+			},
+			toolbox: {
+				feature: {
+					saveAsImage: {}
+				}
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true
+			},
+			xAxis : [
+				{
+					type : 'category',
+					boundaryGap : false,
+					data : ['周一','周二','周三','周四','周五','周六','周日']
+				}
+			],
+			yAxis : [
+				{
+					type : 'value'
+				}
+			],
+			series : [
+				{
+					name:'邮件营销用户',
+					type:'line',
+					stack: '总量',
+					areaStyle: {normal: {}},
+					data:[120, 132, 101, 134, 90, 230, 210]
+				},
+				{
+					name:'联盟广告用户',
+					type:'line',
+					stack: '总量',
+					areaStyle: {normal: {}},
+					data:[220, 182, 191, 234, 290, 330, 310]
+				},
+				{
+					name:'视频广告用户',
+					type:'line',
+					stack: '总量',
+					areaStyle: {normal: {}},
+					data:[150, 232, 201, 154, 190, 330, 410]
+				},
+				{
+					name:'直接访问用户',
+					type:'line',
+					stack: '总量',
+					areaStyle: {normal: {}},
+					data:[320, 332, 301, 334, 390, 330, 320]
+				},
+				{
+					name:'搜索引擎用户',
+					type:'line',
+					stack: '总量',
+					label: {
+						normal: {
+							show: true,
+							position: 'top'
+						}
+					},
+					areaStyle: {normal: {}},
+					data:[820, 932, 901, 934, 1290, 1330, 1320]
+				}
+			]
+		};
+		
+		var chart_opt_order = {
+			title: {
+				//text: '漏斗图',
+				//subtext: '演示数据'
+			},
+			tooltip: {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c}%"
+			},
+			toolbox: {
+				feature: {
+					dataView: {readOnly: false},
+					restore: {},
+					saveAsImage: {}
+				}
+			},
+			legend: {
+				data: ['展现','点击','访问','咨询','订单']
+			},
+			series: [
+				{
+					name: '预期',
+					type: 'funnel',
+					left: '10%',
+					width: '80%',
+					label: {
+						normal: {
+							formatter: '{b}预期'
+						},
+						emphasis: {
+							position:'inside',
+							formatter: '{b}预期: {c}%'
+						}
+					},
+					labelLine: {
+						normal: {
+							show: false
+						}
+					},
+					itemStyle: {
+						normal: {
+							opacity: 0.7
+						}
+					},
+					data: [
+						{value: 60, name: '访问'},
+						{value: 40, name: '咨询'},
+						{value: 20, name: '订单'},
+						{value: 80, name: '点击'},
+						{value: 100, name: '展现'}
+					]
+				},
+				{
+					name: '实际',
+					type: 'funnel',
+					left: '10%',
+					width: '80%',
+					maxSize: '80%',
+					label: {
+						normal: {
+							position: 'inside',
+							formatter: '{c}%',
+							textStyle: {
+								color: '#fff'
+							}
+						},
+						emphasis: {
+							position:'inside',
+							formatter: '{b}实际: {c}%'
+						}
+					},
+					itemStyle: {
+						normal: {
+							opacity: 0.5,
+							borderColor: '#fff',
+							borderWidth: 2
+						}
+					},
+					data: [
+						{value: 30, name: '访问'},
+						{value: 10, name: '咨询'},
+						{value: 5, name: '订单'},
+						{value: 50, name: '点击'},
+						{value: 80, name: '展现'}
+					]
+				}
+			]
+		};
+
+		ffzx.init.chart('chart_visit', chart_opt_visit);
+		ffzx.init.chart('chart_china_map', chart_opt_china_map);
+		ffzx.init.chart('chart_user', chart_opt_user);
+		ffzx.init.chart('chart_order', chart_opt_order);
+		
+	});
+	</script>
+<script src="../../../../asset/js/common/loadingffzx.js?v=20161207115037"></script>
+</body>
+</html>

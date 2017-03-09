@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+div.zTreeDemoBackground {
+	text-align: left; border:0;overflow:auto;padding:0;position:relative;
+}
+div.zTreeDemoBackground .openClose{position:absolute;display:none;top:0;right:0;bottom:0;width:5px;background-color:#f4f4f4;}
+div.zTreeDemoBackground:hover .openClose{display:block;cursor:pointer;}
+ul.ztree {
+	background: #ffffff;height: 100%; overflow-y: auto;overflow-x: auto; padding-top:5px; padding-bottom:10px;
+}
+.zTreeDemoBackground .ztree {height:auto !important;}
+.ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+
+.treeOpened div.zTreeDemoBackground{overflow:hidden;width:5px;position:absolute;top:0;left:10px;}
+.treeOpened div.zTreeDemoBackground .openClose{display:block;top:15px;bottom:15px;}
+.treeOpened .zTreeContent{width:100%;}

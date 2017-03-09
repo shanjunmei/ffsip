@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+       default-lazy-init="false">
+
+    <description>Spring公共配置</description>
+
+    <!--开启注解 -->
+    <context:annotation-config/>
+
+    <!-- 开启自动切面代理 -->
+    <aop:aspectj-autoproxy/>
+
+    <context:component-scan base-package="com.ffzx">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- #################################################################### -->
+    <!-- # 装载属性占位符配置 -->
+    <!-- #################################################################### -->
+    <context:property-placeholder properties-ref="customProperties"/>
+    <bean id="customProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"
+          p:ignoreResourceNotFound="true" p:localOverride="true">
+        <property name="locations">
+            <!-- 禁止调整加载顺序(注：系统以list最后一个有效的value元素为准) -->
+            <list>
+                <!-- 标准配置-->
+                <value>classpath*:/application-core.properties</value>
+                <!--本地开发环境配置-->
+                <value>file:/d:/conf/ffsip/application-core.properties</value>
+                <!--服务器生产环境配置-->
+                <value>file:/etc/conf/ffsip/application-core.properties</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- 定时任务线程池 -->
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <!-- 核心线程数 -->
+        <property name="corePoolSize" value="${task.core_pool_size}" />
+        <!-- 最大线程数 -->
+        <property name="maxPoolSize" value="${task.max_pool_size}" />
+        <!-- 队列最大长度 -->
+        <property name="queueCapacity" value="${task.queue_capacity}" />
+        <!-- 线程池维护线程所允许的空闲时间，默认为60s -->
+        <property name="keepAliveSeconds" value="${task.keep_alive_seconds}" />
+    </bean>
+
+    <!-- #################################################################### -->
+    <!-- # 导入资源配置文件 -->
+    <!-- #################################################################### -->
+
+
+    <import resource="classpath:/application-beans.xml"/>
+    <import resource="classpath:/applicationContext-database.xml"/>
+
+
+
+</beans>

@@ -1,0 +1,92 @@
+[
+    {
+        "href": "",
+        "id": "page-login",
+        "name": "登录页",
+        "parentId": "0",
+        "sub": [],
+        "url": "asset/v2/ui/page/login.html"
+    },
+	{
+        "href": "",
+        "id": "page-dashboard",
+        "name": "Dashboard",
+        "parentId": "0",
+        "sub": [],
+        "url": "asset/v2/ui/page/dashboard.html"
+    },
+    {
+        "href": "",
+        "id": "page-elements",
+        "name": "页面元素",
+        "parentId": "0",
+        "sub": [],
+        "url": "asset/v2/ui/page/elements.html"
+    },
+    {
+        "href": "",
+        "id": "page-main",
+        "name": "主要页面",
+        "parentId": "0",
+        "sub": [
+			{
+                "href": "",
+                "id": "page-list-search",
+                "name": "列表查询",
+                "parentId": "page-main",
+                "sub": [ ],
+                "url": "asset/v2/ui/page/main-list-search.html"
+            },
+			{
+                "href": "",
+                "id": "page-list-edit",
+                "name": "列表编辑",
+                "parentId": "page-main",
+                "sub": [ ],
+                "url": "asset/v2/ui/page/main-list-edit.html"
+            }
+		],
+        "url": null
+    },
+    {
+        "href": "",
+        "id": "page-data-table",
+        "name": "数据表格",
+        "parentId": "0",
+        "sub": [],
+        "url": "asset/v2/ui/page/data-table.html"
+    },
+	{
+        "href": "",
+        "id": "framework-superstarui",
+        "name": "SuperStar UI",
+        "parentId": "0",
+        "sub": [],
+        "url": "asset/v2/index.html"
+    },
+    {
+        "href": "",
+        "id": "page-other",
+        "name": "其它页面",
+        "parentId": "0",
+        "sub": [
+			{
+                "href": "",
+                "id": "page-other-404",
+                "name": "错误页面 404",
+                "parentId": "page-other-error-404",
+                "sub": [ ],
+                "url": "asset/v2/ui/page/other-404.html"
+            },
+			{
+                "href": "",
+                "id": "page-other-500",
+                "name": "错误页面 500",
+                "parentId": "page-other-error-500",
+                "sub": [ ],
+                "url": "asset/v2/ui/page/other-500.html"
+            }
+		],
+        "url": null
+    }
+]
