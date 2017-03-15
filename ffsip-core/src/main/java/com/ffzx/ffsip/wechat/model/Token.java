@@ -1,5 +1,7 @@
 package com.ffzx.ffsip.wechat.model;
 
+import com.ffzx.ffsip.util.DateUtil;
+
 import java.util.Date;
 
 /**
@@ -26,5 +28,11 @@ public class Token {
         this.createTime = createTime;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Token{" +
+                "token='" + token + '\'' +
+                ", createTime=" + (createTime!=null?DateUtil.format(createTime,"yyyy-MM-dd HH:mm:ss.SSS"):"null") +
+                '}';
+    }
 }

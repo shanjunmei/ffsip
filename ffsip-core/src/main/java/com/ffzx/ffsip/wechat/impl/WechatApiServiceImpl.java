@@ -1,5 +1,6 @@
 package com.ffzx.ffsip.wechat.impl;
 
+import com.ffzx.ffsip.util.DateUtil;
 import com.ffzx.ffsip.util.HttpClient;
 import com.ffzx.ffsip.util.JsonConverter;
 import com.ffzx.ffsip.wechat.WechatApiService;
@@ -37,6 +38,12 @@ public class WechatApiServiceImpl implements WechatApiService {
         String wxpenid = "o32Qyv-U9hCu8Ik0wJXf7w3D6ru0";// jj o32Qyv-U9hCu8Ik0wJXf7w3D6ru0
         // my o32QyvzA8VjE9LhyGxmpWDZwvJr4
         String content = "hello world";
+        Date current=new Date();
+
+       Date c= new Date(current.getTime()+7100*1000);
+
+        System.out.println(DateUtil.format(current,"yyyy-MM-dd HH:mm:ss.SSS"));
+        System.out.println(DateUtil.format(c,"yyyy-MM-dd HH:mm:ss.SSS"));
         //String token="-03_ucAgObpx9DpuHnYDykb0fB-sRzgbVEta_9tPgoO3bHxBfNaubckZZLI1BNzvUtxyq1DApiF0XueG6MAw7Q9CCar8VFG-dvrRajHjZ3k5ytQAJdMi9IlSAHukEHL-BOCcAIAHUI";
         // boolean flag=service.sendMsg(wxpenid,content);
 
@@ -83,11 +90,14 @@ public class WechatApiServiceImpl implements WechatApiService {
      *获取accessToken 并且缓存
      */
     public String getAccessToken() {
+        logger.info("token:{}",token.toString());
         String accessToken = null;
         Date current = new Date();
         synchronized (token) {
             if (token != null&&token.getCreateTime()!=null) {
-                if (token.getCreateTime().getTime() + 7100 * 1000 < current.getTime()) {
+                boolean flag = (token.getCreateTime().getTime() + 7100 * 1000) > current.getTime();
+                logger.info("token not invalid:{}",flag);
+                if (flag) {
                     return token.getToken();
                 }
             }
@@ -113,6 +123,7 @@ public class WechatApiServiceImpl implements WechatApiService {
                 logger.info("get tocken fail", e);
             }
         }
+        logger.info("token:{}",token.toString());
         return accessToken;
     }
 
