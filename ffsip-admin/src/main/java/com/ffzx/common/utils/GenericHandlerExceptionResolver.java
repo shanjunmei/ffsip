@@ -28,11 +28,11 @@ public class GenericHandlerExceptionResolver implements HandlerExceptionResolver
         String errorCode = CodeGenerator.code();
         String errorMassage = ex.getMessage();
 
-        this.logger.error("errorCode:" + errorCode);
+        logger.warn("errorCode:" + errorCode);
         if(!(ex instanceof ServiceException)){
-            this.logger.error("错误信息:", ex);
+            logger.warn("错误信息:", ex);
         }else{
-            this.logger.error("错误信息:{}", errorMassage);
+            logger.warn("错误信息:{}", errorMassage);
         }
 
         if (request.getHeader("accept").indexOf("application/json") > -1 || request.getHeader("X-Requested-With") != null && request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1) {

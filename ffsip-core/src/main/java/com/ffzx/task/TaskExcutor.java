@@ -56,11 +56,12 @@ public class TaskExcutor implements Runnable {
         TimeTask<T> task = new TimeTask<>();
         Date currentTime = new Date();
         task.setCreateTime(currentTime);
-        task.setLastExcuteTime(currentTime);
+        Date _currentTime=new Date(currentTime.getTime()-(1+interval*1000));
+        task.setLastExcuteTime(_currentTime);
         task.setInterval(interval);
-        task.setNextExcuteTime(calcNextExcuteTime(currentTime, interval));
+        task.setNextExcuteTime(calcNextExcuteTime(_currentTime, interval));
         task.setTask(t);
-        logger.info(JsonConverter.toJson(task));
+        logger.info(task.toString());
         return task;
     }
 

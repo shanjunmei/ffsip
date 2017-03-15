@@ -16,27 +16,29 @@
             <div class="tab-section">
                 <div class="art-tab active">
                     <div class="art-list">
-                        <ul>
-                            <c:forEach items="${list}" var="article" varStatus="vs">
-							<li class="article with-cover" onclick="location.href='/ffsip-web/WxArticle/detail.do?articleCode=${article.code }'">
-								<p class="title">${article.title }</p>
+                        <ul id="ulhtml">
+                            <c:forEach items="${list}" var="item" varStatus="vs">
+							<li class="article with-cover" onclick="location.href='${BasePath}/WxArticle/detail.do?articleCode=${item.wxArticle.code }'">
+								<p class="title">${item.wxArticle.title }</p>
 								<p class="meta-list">
-									<span class="meta link">商业模式－魏炜</span>
-									<span class="meta"><fmt:formatDate value="${article.createDate }" pattern="yyyy-MM-dd" /></span>
+									<span class="meta link">${item.company.name != null ? item.company.name : item.member.wxNickName}</span>
+									<span class="meta"><fmt:formatDate value="${item.wxArticle.createDate }" pattern="yyyy-MM-dd" /></span>
 								</p>
 								<p class="st">
-									<span>阅读${article.readingNum*1}</span>
-									<span>转发${article.forwardingNum*1}</span>
-									<span>评论${article.commentNum*1}</span>
+									<span>阅读${item.wxArticle.readingNum*1}</span>
+									<span>转发${item.wxArticle.forwardingNum*1}</span>
+									<span>评论${item.wxArticle.commentNum*1}</span>
 								</p>
-								<div class="cover" style="background-image: url('${article.coverImg}');"></div>
+								<div class="cover" style="background-image: url('${item.wxArticle.coverImg}');"></div>
 							</li>
 							</c:forEach>
 
-                            <li class="more">
-                                <a>更多内容</a>
-                            </li>
                         </ul>
+                        <li class="more">
+							<input type="hidden" id="pageIndex" value="1">
+							<input type="hidden" id="pageTotal" value="${pageTotal}">
+							<a href="javascript:loadMore()">更多内容</a>
+                        </li>
                     </div>
                 </div>
             </div>
@@ -44,4 +46,43 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+function loadMore(){			//分页
+	var pageIndex = $("#pageIndex").val()*1 + 1;
+	var pageTotal = $("#pageTotal").val();
+	if(pageIndex <= pageTotal){		
+		$.ajax({url:"${BasePath}/WxArticle/indexLoad.do",
+			data:{'pageIndex':pageIndex},
+			async:false,
+			success: function(res){
+				var str = '';			
+				$.each(res.list,function(n,item) {
+					var company = item.company;
+					var member = item.member;
+					var namestr = item.member.wxNickName;
+					if(company != null){
+						namestr = item.company.name;
+					}
+					str += '<li class="article with-cover" onclick="location.href=\'${BasePath}/WxArticle/detail.do?articleCode='+item.wxArticle.code+'\'">'
+					+'<p class="title">'+item.wxArticle.title+'</p>'
+					+'<p class="meta-list">'
+					+'	<span class="meta link" onclick="location.href=\'${BasePath}/WxArticle/list.do?memberCode='+item.member.code+'\'">'
+					+'		'+namestr+'</span>'
+					+'	<span class="meta">'+formatDate(new Date(item.wxArticle.createDate))+'</span>'
+					+'</p>'
+					+'<p class="st">'
+					+'	<span>阅读'+item.wxArticle.readingNum*1+'</span>'
+					+'	<span>转发'+item.wxArticle.forwardingNum*1+'</span>'
+					+'	<span>评论'+item.wxArticle.commentNum*1+'</span>'
+					+'</p>'
+					+'<div class="cover" style="background-image: url(\''+item.wxArticle.coverImg+'\');"></div>'
+					+'</li>';
+				});
+				$("#ulhtml").append(str);
+				$("#pageIndex").val(pageIndex);
+		     }
+		});		
+	}
+}
+</script>
 </html>

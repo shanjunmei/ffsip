@@ -2,8 +2,8 @@ package com.ffzx.ffsip.web.api;
 
 
 import com.ffzx.ffsip.model.Member;
-import com.ffzx.ffsip.wechat.WechatApiService;
 import com.ffzx.ffsip.service.MemberService;
+import com.ffzx.ffsip.wechat.WechatApiService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

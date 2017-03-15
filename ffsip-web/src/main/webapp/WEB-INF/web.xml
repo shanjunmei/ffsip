@@ -81,10 +81,7 @@
 		<mime-type>application/octet-stream</mime-type>
 	</mime-mapping>
 	
-	<error-page>
-		<error-code>500</error-code>
-		<location>/500.do</location>
-	</error-page>
+
 
 	<jsp-config>
 		<jsp-property-group>
@@ -96,6 +93,7 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
+		<!--<welcome-file>WxArticle/index.do</welcome-file>-->
 	</welcome-file-list>
 	<distributable />
 </web-app>

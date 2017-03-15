@@ -47,7 +47,7 @@ public class TaskWorker implements Runnable {
 
         task.setNextExcuteTime(TaskExcutor.calcNextExcuteTime(currentTime, task.getInterval()));
         task.setLastExcuteTime(currentTime);
-        logger.info("createTime : " + date2Str(task.getCreateTime()) + ",lastExcuteTime :" + date2Str(task.getLastExcuteTime()) + " ,nextExcuteTime : " + date2Str(task.getNextExcuteTime()) + ", interval :" + task.getInterval());
+        logger.info(task.toString());
     }
 
     public String date2Str(Date date) {

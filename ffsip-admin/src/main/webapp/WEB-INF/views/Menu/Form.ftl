@@ -21,7 +21,7 @@
         <div class="form-group">
             <label><i>*</i>菜单编码：</label>
             <div>
-                <input type="text"  name="code" value="${(entity.code) !}" data-rule-required="true" data-msg-required="菜单编码不能为空">
+                <input type="text"  name="code" value="${(entity.code) !}" readonly="readonly">
             </div>
         </div>
 

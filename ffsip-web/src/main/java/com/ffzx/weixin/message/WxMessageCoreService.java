@@ -46,7 +46,7 @@ public class WxMessageCoreService {
      * @param inputStream
      * @return xml
      */
-    public  String processRequest(InputStream inputStream) {
+    public String processRequest(InputStream inputStream) {
         // xml格式的消息数据
         String respXml = null;
         // 默认返回的文本消息内容
@@ -54,7 +54,7 @@ public class WxMessageCoreService {
         try {
             // 调用parseXml方法解析请求消息
             Map<String, String> requestMap = MessageUtil.parseToMap(inputStream);
-            logger.info("接受到消息：{}",requestMap);
+            logger.info("接受到消息：{}", requestMap);
             // 发送方帐号
             String fromUserName = requestMap.get("FromUserName");
             // 开发者微信号
@@ -63,24 +63,24 @@ public class WxMessageCoreService {
             String msgType = requestMap.get("MsgType");
 
 
-            Member member=memberService.findByOpenId(fromUserName);
-           if(member==null){
-               member=new Member();
-               member.setWxOpenid(fromUserName);
-               Map<String,String> userInfo=wechatApiService.getWxUserInfo(fromUserName);
-               String nickName= userInfo.get("nickname");
-               String headPic=userInfo.get("headimgurl");
-               member.setWxHeadimgurl(headPic);
-               member.setWxNickName(nickName);
-               memberService.add(member);
-           }else{
-               Map<String,String> userInfo=wechatApiService.getWxUserInfo(fromUserName);
-               String nickName= userInfo.get("nickname");
-               String headPic=userInfo.get("headimgurl");
-               member.setWxHeadimgurl(headPic);
-               member.setWxNickName(nickName);
-               memberService.updateSelective(member);
-           }
+            Member member = memberService.findByOpenId(fromUserName);
+            if (member == null) {
+                member = new Member();
+                member.setWxOpenid(fromUserName);
+                Map<String, String> userInfo = wechatApiService.getWxUserInfo(fromUserName);
+                String nickName = userInfo.get("nickname");
+                String headPic = userInfo.get("headimgurl");
+                member.setWxHeadimgurl(headPic);
+                member.setWxNickName(nickName);
+                memberService.add(member);
+            } else {
+                Map<String, String> userInfo = wechatApiService.getWxUserInfo(fromUserName);
+                String nickName = userInfo.get("nickname");
+                String headPic = userInfo.get("headimgurl");
+                member.setWxHeadimgurl(headPic);
+                member.setWxNickName(nickName);
+                memberService.updateSelective(member);
+            }
 
             // 回复文本消息
             TextMessage textMessage = new TextMessage();
@@ -90,11 +90,16 @@ public class WxMessageCoreService {
             textMessage.setCreateTime(new Date().getTime() + "");
             textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 
+            String content = null;
+            String title=null;
+
             // 文本消息
             if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-                String url=requestMap.get("Content");
-                respContent =  articlePreEditService.tryCreateEditArticle(url,fromUserName);
-                         }
+                String url = requestMap.get("Content");
+                Map<String,String> result=articlePreEditService.tryCreateEditArticle(url, member.getCode());
+                content =result.get("url");
+                title=result.get("title");
+            }
             // 图片消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
                 respContent = "您发送的是图片消息！";
@@ -117,10 +122,11 @@ public class WxMessageCoreService {
             }
             // 链接消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LINK)) {
-                String url=requestMap.get("Url");
+                String url = requestMap.get("Url");
+                Map<String,String> result=articlePreEditService.tryCreateEditArticle(url, member.getCode());
+                content =result.get("url");
+                title=result.get("title");
 
-                String content= articlePreEditService.tryCreateEditArticle(url,fromUserName);
-                respContent = content;
             }
             // 事件推送
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
@@ -148,18 +154,24 @@ public class WxMessageCoreService {
                 }
             }
             // 设置文本消息的内容
-            if(StringUtils.isNotBlank(respContent)){
+            if (StringUtils.isNotBlank(content)) {
+
+                title = "文章编辑:"+title;
+                respContent = "<a href=\"" + content + "\">" + title + "</a>";
                 textMessage.setContent(respContent);
                 respXml = MessageUtil.messageToXml(textMessage);
-            }else {
-                respXml="";
+            } else {
+                respXml = "";
             }
             // 将文本消息对象转换成xml
 
         } catch (Exception e) {
             logger.info("msg fail", e);
         }
-        logger.info("回复内容：{}",respXml);
+        logger.info("回复内容：{}", respXml);
+        if(respXml==null){
+            respXml="";
+        }
         return respXml;
     }
 }

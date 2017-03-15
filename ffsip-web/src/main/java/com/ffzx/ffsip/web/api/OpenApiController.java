@@ -1,15 +1,16 @@
 package com.ffzx.ffsip.web.api;
 
+import com.ffzx.ffsip.model.Member;
 import com.ffzx.ffsip.model.WxArticle;
 import com.ffzx.ffsip.model.WxEditArticle;
+import com.ffzx.ffsip.service.MemberService;
 import com.ffzx.ffsip.service.WxArticleService;
 import com.ffzx.ffsip.service.WxEditArticleService;
 import com.ffzx.ffsip.util.HttpClient;
+import com.ffzx.ffsip.wechat.WechatApiService;
 import com.ffzx.weixin.message.WxMessageCoreService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,12 @@ public class OpenApiController {
 
     @Resource
     private WxMessageCoreService wxMessageCoreService;
+
+    @Resource
+    private WechatApiService wechatApiService;
+
+    @Resource
+    private MemberService memberService;
 
     @RequestMapping(value = "onWxMessage", method = RequestMethod.POST)
     //@ResponseBody
@@ -110,19 +117,30 @@ public class OpenApiController {
         Document doc = Jsoup.parse(article.getContent());
 
         String sourceCode = request.getParameter("sourceCode");
+        String previewPic=request.getParameter("previewPic");
         WxEditArticle wxEditArticle = wxEditArticleService.findByCode(sourceCode);
         Document sourceDoc = Jsoup.parse(wxEditArticle.getSourceContent());
         doc.head().html(sourceDoc.head().html());
         doc.title(article.getTitle());
         //logger.info("doc:{}",doc.toString());
         article.setContent(doc.toString());
-
+        article.setPublisher(wxEditArticle.getCreateBy());
+        article.setCreateBy(wxEditArticle.getCreateBy());
+        article.setCoverImg(previewPic);
+       /* if(doc.select("img")!=null){
+            article.setCoverImg(doc.select("img").get(0).attr("src"));
+        }*/
 
         int i = wxArticleService.add(article);
+
+
         Map<String, String> ret = new HashMap<>();
         if (i > 0) {
+            String url="http://ffsip.ffzxnet.com/ffsip-web/WxArticle/detail.do?articleCode=" + article.getCode();
             ret.put("msg", "success");
-            ret.put("returnStr", "http://ffsip.ffzxnet.com/ffsip-admin/OpenApi/article.do?code=" + article.getCode());
+            ret.put("returnStr", url);
+            Member member=memberService.findByCode(article.getCreateBy());
+            wechatApiService.sendMsg(member.getWxOpenid(),"<a href=\""+url+"\">"+article.getTitle()+"</a>");
         } else {
             ret.put("msg", "发布失败");
         }

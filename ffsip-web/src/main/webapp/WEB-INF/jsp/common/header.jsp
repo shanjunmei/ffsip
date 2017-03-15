@@ -3,20 +3,32 @@
 <div class="root-view">
     <header>
         <div class="logo-btn">
-	        <c:if test="${empty loginCompany}">
-        		<img src="/ffsip-web/images/50.png" style="height:40px !important;" onclick="location.href='/ffsip-web'">
+	        <c:if test="${empty company}">
+        		<img src="${BasePath}/images/50.png" style="height:30px !important; margin-top:7px;" onclick="location.href='${BasePath}'">
         	</c:if>									
-			<c:if test="${not empty loginCompany}">
-				<a href="/ffsip-web/WxArticle/list.do?memberCode=${loginMember.code}" style="color:red ;">
-				${loginCompany.name}</a>
+			<c:if test="${not empty company}">
+				<a href="${BasePath}/WxArticle/list.do?memberCode=${member.code}" style="color:red ; margin-top:7px; line-height: 30px;">
+				${company.name}</a>
 			</c:if>
         </div>
         <div class="right" style="float: right;margin: 7px 10px 0 0; line-height:37px;">
             <c:if test="${not empty loginMember}">
-            	<img src="${loginMember == '' ? loginMember.logoImg : loginMember.wxHeadimgurl}" height="30">
+            <%--    <c:if test="${not empty company}">
+
+                </c:if>--%>
+                <c:choose>
+                    <c:when test="${not empty company}">
+                        <img src="${ company.logoImg }" class="tx" onclick="location.href = '${BasePath}/WxArticle/list.do?memberCode=${loginMember.code }'">
+                    </c:when>
+                    <c:otherwise>
+                        <img src="${loginMember.wxHeadimgurl}" class="tx" onclick="location.href = '${BasePath}/WxArticle/list.do?memberCode=${loginMember.code }'">
+                    </c:otherwise>
+
+                </c:choose>
             </c:if>            
             <c:if test="${empty loginMember}">
-            	<a href="#" style="color:#2f8efe ; font-weight: 300;">登录</a>
+            	<%--<a href="#" style="color:#2f8efe ; font-weight: 300;">登录</a>--%>
+                <%--<img src="${BasePath}/images/img1.jpg" class="tx">--%>
             </c:if>
         </div>
     </header>

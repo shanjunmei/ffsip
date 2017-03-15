@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,41 +44,49 @@ public class OauthInterceptor extends HandlerInterceptorAdapter {
             member.setWxOpenid(WECHAT_WEB_DEBUG_OPENID);
 
         }*/
-        /*Enumeration headerNames = request.getHeaderNames();
+       /* Enumeration headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String key = (String) headerNames.nextElement();
             String value = request.getHeader(key);
             logger.info(key + " : " + value);
         }*/
 
-        String ua = ((HttpServletRequest) request).getHeader("user-agent").toLowerCase();
-        logger.info("user-agent:{}",ua);
+        String ua = ((HttpServletRequest) request).getHeader("user-agent");
+       // logger.info("user-agent:{}",ua);
+        ua=ua.toLowerCase();
         boolean isWechat = false;
         if (ua.indexOf("micromessenger") > 0) {// 是微信浏览器
             isWechat = true;
         }
 
-        if (member == null) {
+       // member=new Member();
+    /*    logger.info("request url：{}",request.getRequestURL());
+        logger.info("member:{}",JsonConverter.toJson(member));*/
+        if (member == null&&isWechat) {
             String refer=request.getHeader("Referer");
-            String baseUrl = request.getScheme() + "://" + request.getServerName()+"/"+request.getContextPath() + "/Signin.html"; //服务器地址
+            String baseUrl = request.getScheme() + "://" + request.getServerName()+request.getContextPath() + "/Signin.html"; //服务器地址
             if(StringUtils.isNotBlank(refer)){
                 baseUrl=baseUrl+"?refer="+refer;
                 // String redirectUrl = URLEncoder.encode(baseUrl + "/ffsip-admin/Oauth.do", "utf-8");
+            }else{
+                baseUrl=baseUrl+"?refer="+request.getRequestURI();
             }
             String redirectUrl = URLEncoder.encode(baseUrl, "utf-8");
+        /*    logger.info("redirect url:{}",redirectUrl);*/
             String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + System.getProperty("wechat.appid") + "&redirect_uri=" + redirectUrl + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-           if(!isWechat) {
+          /* if(!isWechat) {
                url = "https://open.weixin.qq.com/connect/qrconnect?appid=" + System.getProperty("wechat.appid") + "&redirect_uri=" + redirectUrl + "&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect";
-           }
-            response.setContentType("text/json");
+           }*/
+           response.sendRedirect(url);
+           /* response.setContentType("text/json");
             PrintWriter out = response.getWriter();
 	        Map ret=new HashMap<>();
             ret.put("code",-2);
             ret.put("url",url);
-	        out.print(JsonConverter.toJson(ret));
+	        out.print(JsonConverter.toJson(ret));*/
 
            // response.sendRedirect(url);
-            return false;
+            return true;
         }
 
         return true;

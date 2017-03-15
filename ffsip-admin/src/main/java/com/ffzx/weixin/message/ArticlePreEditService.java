@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/3/2.
@@ -26,7 +28,10 @@ public class ArticlePreEditService {
     @Resource
     private WxEditArticleService wxEditArticleService;
 
-    public String tryCreateEditArticle(String url, String createBy) {
+    public Map<String,String> tryCreateEditArticle(String url, String createBy) {
+        Map<String,String> result=new HashMap<>();
+        String _u=null;
+        String title=null;
         Document template =getTemplate();
         Elements content= template.select("#baopingPreview_content_container");
        // logger.info("template js_content:"+content.toString());
@@ -45,13 +50,15 @@ public class ArticlePreEditService {
         wxEditArticle.setCode(code);
         wxEditArticle.setCreateBy(createBy);
         wxEditArticle.setLastUpdateBy(createBy);
+        title=doc.title();
         int ret = wxEditArticleService.add(wxEditArticle);
         logger.info("pre edit result :" + ret);
         if (ret > 0) {
-            return "http://ffsip.ffzxnet.com/ffsip-admin/OpenApi/editArticle.do?code=" + wxEditArticle.getCode();
-        } else {
-            return null;
+             _u= "http://ffsip.ffzxnet.com/ffsip-admin/OpenApi/editArticle.do?code=" + wxEditArticle.getCode();
+            result.put("url",_u);
+            result.put("title",title);
         }
+        return result;
     }
 
     public InputStream getStream(String path) {

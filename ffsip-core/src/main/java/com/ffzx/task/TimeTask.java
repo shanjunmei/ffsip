@@ -1,6 +1,8 @@
 //任务实体定义
 package com.ffzx.task;
 
+import com.ffzx.ffsip.util.DateUtil;
+
 import java.util.Date;
 
 /**
@@ -64,5 +66,16 @@ public class TimeTask<T> {
 
     public void setTask(Task task) {
         this.task = task;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName()+"{" +
+                "createTime=" + DateUtil.format(createTime,"yyyy-MM-dd HH:mm:ss.SSS") +
+                ", lastExcuteTime=" +  DateUtil.format(lastExcuteTime,"yyyy-MM-dd HH:mm:ss.SSS") +
+                ", nextExcuteTime=" +  DateUtil.format(nextExcuteTime,"yyyy-MM-dd HH:mm:ss.SSS") +
+                ", interval=" + interval +
+                ", task=" + task +
+                '}';
     }
 }

@@ -9,4 +9,6 @@ import com.ffzx.ffsip.model.Menu;
  */
 public interface CompanyService extends BaseService<Company,String>{
 
+    public Company findByMemberCode(String memberCode);
+
 }

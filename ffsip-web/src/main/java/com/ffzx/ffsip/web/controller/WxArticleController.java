@@ -1,13 +1,17 @@
 package com.ffzx.ffsip.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ffzx.common.controller.BaseController;
 import com.ffzx.ffsip.model.Company;
@@ -18,6 +22,7 @@ import com.ffzx.ffsip.model.WxArticleExample;
 import com.ffzx.ffsip.service.CompanyService;
 import com.ffzx.ffsip.service.MemberService;
 import com.ffzx.ffsip.service.WxArticleService;
+import com.ffzx.ffsip.vo.ArticleInfo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
@@ -61,20 +66,61 @@ public class WxArticleController extends BaseController<WxArticle,String,WxArtic
 		String indexStr = (String) ((getParameter("pageIndex") == null) ? "1" : getParameter("pageIndex"));
 		String sizeStr = "10";
 		Page<WxArticle> page = null;
-		int total = 0;
+		int pageTotal = 0;
 		if (StringUtils.isNotBlank(indexStr)) {
 			page = PageHelper.startPage(Integer.valueOf(indexStr), Integer.valueOf(sizeStr));
 		}/*分页信息end*/
 
         WxArticleExample example = new WxArticleExample();
-    	example.createCriteria().andPublisherEqualTo(member.getCode());		
+    	example.createCriteria().andPublisherEqualTo(member.getCode());	
+    	example.setOrderByClause("last_update_date desc");
         List<WxArticle> list = getService().selectByExample(example);
 
-		total = (int) page.getTotal();
-		modelMap.put("total", total);
+        pageTotal = (int) page.getPages();
+		modelMap.put("pageTotal", pageTotal);
         modelMap.put("memberCode", memberCode);			//当前查询用户信息
         modelMap.put("list", list);				//文章列表
         return getBasePath() + "/list";
+    }
+    
+
+    /**
+     * 异步进入个人主页
+     * @param memberCode
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping("listLoad")
+	@ResponseBody
+    public Map<String, Object> toListLoad(String memberCode, ModelMap modelMap){
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	modelMap = selectPublisher(memberCode, modelMap); //获取发表者信息
+    	Member member = (Member)modelMap.get("member");
+    	map.put("member", member);
+    	map.put("company", modelMap.get("company"));
+    	if(member == null){ 
+    		return null;
+    	}
+    	              
+        /*分页信息begin*/
+		String indexStr = (String) ((getParameter("pageIndex") == null) ? "1" : getParameter("pageIndex"));
+		String sizeStr = "10";
+		Page<WxArticle> page = null;
+		int pageTotal = 0;
+		if (StringUtils.isNotBlank(indexStr)) {
+			page = PageHelper.startPage(Integer.valueOf(indexStr), Integer.valueOf(sizeStr));
+		}/*分页信息end*/
+
+        WxArticleExample example = new WxArticleExample();
+    	example.createCriteria().andPublisherEqualTo(member.getCode());	
+    	example.setOrderByClause("last_update_date desc");
+        List<WxArticle> list = getService().selectByExample(example);
+
+        pageTotal = (int) page.getPages();
+        map.put("pageTotal", pageTotal);
+        map.put("memberCode", memberCode);			//当前查询用户信息
+        map.put("list", list);				//文章列表
+        return map;
     }
 
     /**
@@ -105,21 +151,50 @@ public class WxArticleController extends BaseController<WxArticle,String,WxArtic
     	 /*分页信息begin*/
 		String indexStr = (String) ((getParameter("pageIndex") == null) ? "1" : getParameter("pageIndex"));
 		String sizeStr = "10";
-		Page<WxArticle> page = null;
-		int total = 0;
+		Page<ArticleInfo> page = null;
+		int pageTotal = 0;
 		if (StringUtils.isNotBlank(indexStr)) {
 			page = PageHelper.startPage(Integer.valueOf(indexStr), Integer.valueOf(sizeStr));
 		}/*分页信息end*/
 
         WxArticleExample example = new WxArticleExample();
-        List<WxArticle> list = getService().selectByExample(example);
+    	example.setOrderByClause("last_update_date desc");
+        List<ArticleInfo> list = getService().findArticleInfo(example);
 
-
-//		total = (int) page.getTotal();
-		modelMap.put("total", total);
+        pageTotal = (int) page.getPages();
+		modelMap.put("pageTotal", pageTotal);
         modelMap.put("list", list);				//文章列表
         
         return "/index";
+    }
+
+    /**
+     * 异步获取首页
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping("indexLoad")
+	@ResponseBody
+    public Map<String, Object> toIndexLoad(ModelMap modelMap){
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	 /*分页信息begin*/
+		String indexStr = (String) ((getParameter("pageIndex") == null) ? "1" : getParameter("pageIndex"));
+		String sizeStr = "10";
+		Page<ArticleInfo> page = null;
+		int pageTotal = 0;
+		if (StringUtils.isNotBlank(indexStr)) {
+			page = PageHelper.startPage(Integer.valueOf(indexStr), Integer.valueOf(sizeStr));
+		}/*分页信息end*/
+
+        WxArticleExample example = new WxArticleExample();
+    	example.setOrderByClause("last_update_date desc");
+        List<ArticleInfo> list = getService().findArticleInfo(example);
+
+        pageTotal = (int) page.getPages();
+        map.put("pageTotal", pageTotal);
+        map.put("list", list);				//文章列表
+        
+        return map;
     }
     
     /**
