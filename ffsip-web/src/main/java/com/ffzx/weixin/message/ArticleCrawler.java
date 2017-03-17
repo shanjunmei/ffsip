@@ -46,6 +46,8 @@ public class ArticleCrawler {
             e.attr("src", resource+dataSrc);
         }
         doc.select("script").remove();
+        doc.select(".rich_media_title").remove();
+        doc.select(".rich_media_meta_list").remove();
         doc.select("body").attr("contenteditable", "true");
         return doc.toString();
     }

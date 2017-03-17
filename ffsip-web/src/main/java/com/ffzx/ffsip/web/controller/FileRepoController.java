@@ -53,12 +53,17 @@ public class FileRepoController extends BaseController<FileRepo,String,FileRepoE
     @RequestMapping("file")
     public void file(HttpServletRequest request, HttpServletResponse response,String id){
         FileRepo repo= getService().findById(id);
-        response.setContentType(repo.getContentType());
+
         try {
            // response.addHeader("Content-Disposition","attachment; filename='" + URLEncoder.encode(repo.getName(),"utf-8") + "'");
             OutputStream out=response.getOutputStream();
-            out.write(repo.getContent());
-            out.flush();
+            if(repo!=null&&repo.getContent()!=null){
+                response.setContentType(repo.getContentType());
+                out.write(repo.getContent());
+                out.flush();
+            }else{
+                logger.info("can't found file:{}",id);
+            }
         } catch (IOException e) {
             throw  new RuntimeException(e);
         }

@@ -84,7 +84,7 @@ public class TaskExcutor implements Runnable {
             excutor.execute(worker);
 
             try {
-                TimeUnit.MICROSECONDS.sleep(1);
+                TimeUnit.MICROSECONDS.sleep(10);
             } catch (InterruptedException e) {
                 logger.info("exception", e);
             }

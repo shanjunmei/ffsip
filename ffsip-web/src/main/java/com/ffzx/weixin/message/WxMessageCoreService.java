@@ -74,12 +74,14 @@ public class WxMessageCoreService {
                 member.setWxNickName(nickName);
                 memberService.add(member);
             } else {
-                Map<String, String> userInfo = wechatApiService.getWxUserInfo(fromUserName);
-                String nickName = userInfo.get("nickname");
-                String headPic = userInfo.get("headimgurl");
-                member.setWxHeadimgurl(headPic);
-                member.setWxNickName(nickName);
-                memberService.updateSelective(member);
+                if((new Date().getTime()-member.getLastUpdateDate().getTime())>24*3600*1000){//超过一天未更新则更新，防止每次更新，调用超限
+                    Map<String, String> userInfo = wechatApiService.getWxUserInfo(fromUserName);
+                    String nickName = userInfo.get("nickname");
+                    String headPic = userInfo.get("headimgurl");
+                    member.setWxHeadimgurl(headPic);
+                    member.setWxNickName(nickName);
+                    memberService.updateSelective(member);
+                }
             }
 
             // 回复文本消息
@@ -168,7 +170,7 @@ public class WxMessageCoreService {
         } catch (Exception e) {
             logger.info("msg fail", e);
         }
-        logger.info("回复内容：{}", respXml);
+      //  logger.info("回复内容：{}", respXml);
         if(respXml==null){
             respXml="";
         }

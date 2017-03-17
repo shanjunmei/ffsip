@@ -168,7 +168,7 @@ public class WxMessageCoreService {
         } catch (Exception e) {
             logger.info("msg fail", e);
         }
-        logger.info("回复内容：{}", respXml);
+       // logger.info("回复内容：{}", respXml);
         if(respXml==null){
             respXml="";
         }
