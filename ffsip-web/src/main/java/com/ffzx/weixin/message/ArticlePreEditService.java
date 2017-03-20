@@ -54,7 +54,7 @@ public class ArticlePreEditService {
         int ret = wxEditArticleService.add(wxEditArticle);
         logger.info("pre edit result :" + ret);
         if (ret > 0) {
-             _u= "http://ffsip.ffzxnet.com/ffsip-admin/OpenApi/editArticle.do?code=" + wxEditArticle.getCode();
+             _u= "http://ffsip.ffzxnet.com/ffsip-web/OpenApi/editArticle.do?code=" + wxEditArticle.getCode();
             result.put("url",_u);
             result.put("title",title);
         }

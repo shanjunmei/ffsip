@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ffzx.common.controller.BaseController;
+import com.ffzx.common.utils.WebUtils;
 import com.ffzx.ffsip.model.Company;
 import com.ffzx.ffsip.model.CompanyExample;
 import com.ffzx.ffsip.model.Member;
@@ -56,10 +57,21 @@ public class WxArticleController extends BaseController<WxArticle,String,WxArtic
      */
     @RequestMapping("list")
     public String toList(String memberCode, ModelMap modelMap){
-    	modelMap = selectPublisher(memberCode, modelMap); //获取发表者信息
-    	Member member = (Member)modelMap.get("member");
+    	Member member = WebUtils.getSessionAttribute("loginMember");
+    	if(StringUtils.isEmpty(memberCode) && member != null){				//如果没传用户信息，则进入用户列表
+    		Company company = WebUtils.getSessionAttribute("loginCompany");	
+    	
+    		modelMap.put("member", member);
+    		modelMap.put("company", company);
+    	}
+    	
+    	if(StringUtils.isNotEmpty(memberCode)){								//获取发表者信息
+    		modelMap = selectPublisher(memberCode, modelMap); 
+        	member = (Member)modelMap.get("member");
+    	}
+    	
     	if(member == null){ 
-    		return getBasePath() + "/list";
+    		return "redirect:" + getBasePath() + "/index.do";
     	}
     	              
         /*分页信息begin*/
@@ -73,7 +85,7 @@ public class WxArticleController extends BaseController<WxArticle,String,WxArtic
 
         WxArticleExample example = new WxArticleExample();
     	example.createCriteria().andPublisherEqualTo(member.getCode());	
-    	example.setOrderByClause("last_update_date desc");
+    	example.setOrderByClause("create_date desc");
         List<WxArticle> list = getService().selectByExample(example);
 
         pageTotal = (int) page.getPages();
@@ -113,7 +125,7 @@ public class WxArticleController extends BaseController<WxArticle,String,WxArtic
 
         WxArticleExample example = new WxArticleExample();
     	example.createCriteria().andPublisherEqualTo(member.getCode());	
-    	example.setOrderByClause("last_update_date desc");
+    	example.setOrderByClause("create_date desc");
         List<WxArticle> list = getService().selectByExample(example);
 
         pageTotal = (int) page.getPages();
@@ -135,7 +147,13 @@ public class WxArticleController extends BaseController<WxArticle,String,WxArtic
         WxArticle article = getService().findByCode(articleCode);
         if(article != null){
         	modelMap = selectPublisher(article.getPublisher() , modelMap); //获取发表者信息 
-        	modelMap.put("article", article);        	       	
+        	modelMap.put("article", article);     
+        	if(article.getReadingNum() == null || "".equals(article.getReadingNum())){
+        		article.setReadingNum("1");
+        	}else{
+        		article.setReadingNum((Integer.parseInt(article.getReadingNum()) + 1) + "");
+        	}
+        	getService().update(article);
         }
         
         return getBasePath() + "/detail";
@@ -158,7 +176,7 @@ public class WxArticleController extends BaseController<WxArticle,String,WxArtic
 		}/*分页信息end*/
 
         WxArticleExample example = new WxArticleExample();
-    	example.setOrderByClause("last_update_date desc");
+    	example.setOrderByClause("create_date desc");
         List<ArticleInfo> list = getService().findArticleInfo(example);
 
         pageTotal = (int) page.getPages();
@@ -187,7 +205,7 @@ public class WxArticleController extends BaseController<WxArticle,String,WxArtic
 		}/*分页信息end*/
 
         WxArticleExample example = new WxArticleExample();
-    	example.setOrderByClause("last_update_date desc");
+    	example.setOrderByClause("create_date desc");
         List<ArticleInfo> list = getService().findArticleInfo(example);
 
         pageTotal = (int) page.getPages();

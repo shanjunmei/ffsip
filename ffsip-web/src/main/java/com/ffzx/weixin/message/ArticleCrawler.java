@@ -11,7 +11,7 @@ import java.io.IOException;
  * Created by Administrator on 2017/2/28.
  */
 public class ArticleCrawler {
-    public static String resource="http://ffsip.ffzxnet.com/ffsip-admin/OpenApi/resource.do?url=";
+    public static String resource="http://ffsip.ffzxnet.com/ffsip-web/OpenApi/resource.do?url=";
 
     public static Document get(String url) {
         try {

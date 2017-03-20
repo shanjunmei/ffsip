@@ -35,9 +35,9 @@
                 <!-- 标准配置-->
                 <value>classpath*:/application-web.properties</value>
                 <!--本地开发环境配置-->
-                <value>file:/d:/conf/kart/application-web.properties</value>
+                <value>file:/d:/conf/ffsip/application-web.properties</value>
                 <!--服务器生产环境配置-->
-                <value>file:/etc/conf/kart/application-web.properties</value>
+                <value>file:/etc/conf/ffsip/application-web.properties</value>
             </list>
         </property>
     </bean>

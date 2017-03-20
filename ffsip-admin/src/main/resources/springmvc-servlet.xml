@@ -65,27 +65,7 @@
             <bean class="com.ffzx.common.utils.LoginInterceptor"/>
 
         </mvc:interceptor>
-     <!--   <mvc:interceptor>
-            <mvc:mapping path="/api/*"/>
-            <mvc:exclude-mapping path="/Checktoken.do"/>
-            <mvc:exclude-mapping path="/Oauth.do"/>
-            <mvc:exclude-mapping path="/api/login.do"/>
-            <mvc:exclude-mapping path="/api/recieve.do"/>
-            <mvc:exclude-mapping path="/FileRepo/file.do"/>
-            <mvc:exclude-mapping path="/OpenApi/**"/>
-            <bean class="com.ffzx.common.utils.OauthInterceptor">
-            </bean>
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/api/*"/>
-            <mvc:exclude-mapping path="/api/login.do"/>
-            <mvc:exclude-mapping path="/api/recieve.do"/>
-            <mvc:exclude-mapping path="/Checktoken.do"/>
-            <mvc:exclude-mapping path="/Oauth.do"/>
-            <mvc:exclude-mapping path="/FileRepo/file.do"/>
-            <mvc:exclude-mapping path="/OpenApi/**"/>
-            <bean class="com.ffzx.common.utils.ApiInterceptor"/>
-        </mvc:interceptor>-->
+
     </mvc:interceptors>
 
 
