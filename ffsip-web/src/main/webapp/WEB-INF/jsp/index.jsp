@@ -34,7 +34,7 @@
 							</c:forEach>
 
                         </ul>
-                        <li class="more">
+                        <li class="more" id="articleA" ${pageTotal == 1 ? 'style="display: none;"':''}>
 							<input type="hidden" id="pageIndex" value="1">
 							<input type="hidden" id="pageTotal" value="${pageTotal}">
 							<a href="javascript:loadMore()">更多内容</a>
@@ -80,6 +80,9 @@ function loadMore(){			//分页
 				});
 				$("#ulhtml").append(str);
 				$("#pageIndex").val(pageIndex);
+				if(pageIndex == pageTotal){
+					$("#subscribeA").attr("style","display: none;");
+				}
 		     }
 		});		
 	}

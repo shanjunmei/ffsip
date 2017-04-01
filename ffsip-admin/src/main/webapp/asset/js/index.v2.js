@@ -36,7 +36,8 @@ $(function() {
     	var getCurIframe=event.data;
     	var curIframeObj = getCurIframe.split(",");
 		
-		if (curIframeObj.length > 1 && $('#' + curIframeObj[0]).length) {
+		//if (curIframeObj.length > 1 && $('#' + curIframeObj[0]).length) {
+		if (curIframeObj.length > 1) {
 				
 			if (curIframeObj[1]=='hidden'){
 				$('#pagetab_contentholder').showLoader();

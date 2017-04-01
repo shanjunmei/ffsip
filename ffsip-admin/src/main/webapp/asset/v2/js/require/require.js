@@ -99,6 +99,7 @@ requirejs.config({
 	baseUrl: PATH_BASE,
 	paths: {
 		// Vendor
+		'vue': 'js/vue/vue.min',
 		'avalon': 'js/avalon/avalon-1.5.5',
 		'text': 'js/require/text',
 		'css': 'js/require/css',
@@ -155,6 +156,7 @@ requirejs.config({
 		'frontEngineDialog': 'lib/artdialog/js/dialogUtils',
 		'ff/select2': 'lib/select2/js/select2.full.min',
 		'ff/cookie': 'js/jquery/jquery.cookie',
+		'ff/qrcode': 'js/util/qrcode',
 		
 		// jQuery Validation
 		'ff/validate_core': 'lib/validation/jquery.validate.min',
@@ -179,7 +181,8 @@ requirejs.config({
 		'ff/ueditor': 'lib/ueditor/lang/zh-cn/zh-cn',
 		
 		//ECharts
-		'echarts': 'lib/echarts/echarts'
+		'echarts': 'lib/echarts/echarts',
+		'echarts/map/china': 'lib/echarts/map/china'
 	},
 	priority: ['css', 'text'],
 	shim: {
@@ -235,6 +238,7 @@ requirejs.config({
 		'ff/webuploader': {deps: ['css!' + PATH_BASE + '/css/font-awesome.min.css', 'ff/webuploader_core']},
 		'ZeroClipboard': {deps:['ff/ueditor_core']},
 		'ff/ueditor': {deps:['ff/ueditor_config', 'ff/ueditor_core', 'ZeroClipboard']},
+		'ff/qrcode': {exports:'QRCode'},
 		'echarts': {exports: 'echarts'}
 	},
 	enforceDefine: true,

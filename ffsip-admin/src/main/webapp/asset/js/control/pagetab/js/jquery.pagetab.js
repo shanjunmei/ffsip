@@ -595,7 +595,15 @@ String.prototype.cut = function(len) {
  * 右键菜单，示例：$(this).RightMenu('myMenu2',{menuList:[{menuName:"菜单1",menuclass:"1",clickEvent:"divClick(1)"}]});
  */
 $(function(){
-	//document.oncontextmenu=function(){return false;}//屏蔽右键
+
+	$(document).on('mouseenter', '.nav-tabs', function(){
+		document.oncontextmenu = function(){return false;}
+	});
+	
+	$(document).on('mouseleave', '.nav-tabs', function(){
+		document.oncontextmenu = function(){return true;}
+	});
+	
 	document.onmousemove=mouseMove;//记录鼠标位置
 });
 var mx=0,my=0;

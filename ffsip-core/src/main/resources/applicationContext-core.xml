@@ -61,6 +61,6 @@
     <import resource="classpath:/application-beans.xml"/>
     <import resource="classpath:/applicationContext-database.xml"/>
 
-
+    <import resource="classpath:/applicationContext-aop.xml"/>
 
 </beans>

@@ -180,6 +180,7 @@ define(['ff/datatable'], function(){
 		// 表格基本代码
 		var strTable = '<table id="'+ dataTableId +'" class="table table-hover table-striped table-bordered">'
 			+ 	'<thead>'
+			+   ((hasProp('header_colspan')) ? obj.header_colspan : '')
 			+		'<tr>'					
 			+			'<th class="clm_index">'+ this.indexLabel +'</th>'
 			+			((!this.hasClmCheckbox) ? '<th class="clm_checkbox"><input type="checkbox" class="selectAll" /></th>' : '')

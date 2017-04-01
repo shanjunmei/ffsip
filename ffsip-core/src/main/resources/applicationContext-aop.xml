@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd
+
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <description>Spring Aop Config</description>
+
+    <bean id="logInterceptor" class="com.ffzx.common.aop.LogInterceptor"/>
+
+    <aop:config>
+        <aop:pointcut id="commonlogLointCut" expression="
+             execution(* com.ffzx..*.*(..) ) and
+             !execution(* com.ffzx.ffsip.mapper.*.*(..) )
+        "/>
+
+        <aop:pointcut id="mapperlogLointCut" expression="
+             execution(* com.ffzx.ffsip.mapper.*.*(..) )
+        "/>
+
+
+        <aop:advisor pointcut-ref="commonlogLointCut" advice-ref="logInterceptor" order="2"/>
+
+        <aop:aspect order="1" id="logAspect" ref="logInterceptor">
+            <aop:around method="logger" pointcut-ref="mapperlogLointCut"/>
+        </aop:aspect>
+
+
+    </aop:config>
+
+
+</beans>

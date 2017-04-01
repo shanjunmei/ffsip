@@ -1,5 +1,23 @@
 var ffzx = ffzx || {};
 
+if (typeof debounce != 'function') {
+	
+	var debounce = function(func, wait, immediate) {
+	    var timeout;
+	    return function() {
+	        var context = this, args = arguments;
+	        var later = function() {
+	            timeout = null;
+	            if (!immediate) func.apply(context, args);
+	        };
+	        var callNow = immediate && !timeout;
+	        clearTimeout(timeout);
+	        timeout = setTimeout(later, wait);
+	        if (callNow) func.apply(context, args);
+	    };
+	}
+}
+
 ffzx.map = {
 	ui: {
 		datatable: 'ff/init_datatable',
@@ -8,6 +26,7 @@ ffzx.map = {
 		treetable: 'ff/treetable',
 		validate: 'ff/validate',
 		select2: 'ff/select2',
+		multiselect: 'bs/multiselect',
 		datepicker: 'jq/datetimepicker',
 		upload: 'ff/webuploader',
 		ueditor: 'ff/ueditor'
@@ -121,7 +140,7 @@ ffzx.init = {
 			_method = 'timepicker';
 		}
 		$input[_method](opt);
-	}
+	}	
 };
 
 ffzx.util = {
@@ -208,6 +227,31 @@ ffzx.util = {
 			if ('columns' in val) {
 				val.columns.adjust();
 			}
+		});
+	},
+	
+	qrcode: function(_opt){
+		var opt = _opt;
+		
+		if ($.type(opt.id) == 'undefined') {
+			alert('请定义二维码容器的  id');
+			return false;
+		}
+		
+		var width = (isNaN(opt.width)) ? 96 : opt.width;
+		var height = (isNaN(opt.height)) ? 96 : opt.height;
+		var content = ($.type(opt.content) == 'undefined') ? window.location.href : opt.content;
+		var colorDark = ($.type(opt.colorDark) == 'undefined') ? "#000000" : opt.colorDark;
+		var colorLight = ($.type(opt.colorLight) == 'undefined') ? "#ffffff" : opt.colorLight;
+		
+		requirejs(['ff/qrcode'], function(){
+		    var qrcode = new QRCode(document.getElementById(opt.id), {
+		        width: width,
+		        height: height,
+		        colorDark: colorDark,
+				colorLight: colorLight
+		    });
+		    qrcode.makeCode(content);
 		});
 	}
 };

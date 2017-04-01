@@ -828,62 +828,52 @@ public class WxArticleExample extends GenericExample<Criteria> {
             return (Criteria) this;
         }
 
-        public Criteria andReadingNumEqualTo(String value) {
+        public Criteria andReadingNumEqualTo(Integer value) {
             addCriterion("reading_num =", value, "readingNum");
             return (Criteria) this;
         }
 
-        public Criteria andReadingNumNotEqualTo(String value) {
+        public Criteria andReadingNumNotEqualTo(Integer value) {
             addCriterion("reading_num <>", value, "readingNum");
             return (Criteria) this;
         }
 
-        public Criteria andReadingNumGreaterThan(String value) {
+        public Criteria andReadingNumGreaterThan(Integer value) {
             addCriterion("reading_num >", value, "readingNum");
             return (Criteria) this;
         }
 
-        public Criteria andReadingNumGreaterThanOrEqualTo(String value) {
+        public Criteria andReadingNumGreaterThanOrEqualTo(Integer value) {
             addCriterion("reading_num >=", value, "readingNum");
             return (Criteria) this;
         }
 
-        public Criteria andReadingNumLessThan(String value) {
+        public Criteria andReadingNumLessThan(Integer value) {
             addCriterion("reading_num <", value, "readingNum");
             return (Criteria) this;
         }
 
-        public Criteria andReadingNumLessThanOrEqualTo(String value) {
+        public Criteria andReadingNumLessThanOrEqualTo(Integer value) {
             addCriterion("reading_num <=", value, "readingNum");
             return (Criteria) this;
         }
 
-        public Criteria andReadingNumLike(String value) {
-            addCriterion("reading_num like", value, "readingNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andReadingNumNotLike(String value) {
-            addCriterion("reading_num not like", value, "readingNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andReadingNumIn(List<String> values) {
+        public Criteria andReadingNumIn(List<Integer> values) {
             addCriterion("reading_num in", values, "readingNum");
             return (Criteria) this;
         }
 
-        public Criteria andReadingNumNotIn(List<String> values) {
+        public Criteria andReadingNumNotIn(List<Integer> values) {
             addCriterion("reading_num not in", values, "readingNum");
             return (Criteria) this;
         }
 
-        public Criteria andReadingNumBetween(String value1, String value2) {
+        public Criteria andReadingNumBetween(Integer value1, Integer value2) {
             addCriterion("reading_num between", value1, value2, "readingNum");
             return (Criteria) this;
         }
 
-        public Criteria andReadingNumNotBetween(String value1, String value2) {
+        public Criteria andReadingNumNotBetween(Integer value1, Integer value2) {
             addCriterion("reading_num not between", value1, value2, "readingNum");
             return (Criteria) this;
         }
@@ -898,62 +888,52 @@ public class WxArticleExample extends GenericExample<Criteria> {
             return (Criteria) this;
         }
 
-        public Criteria andForwardingNumEqualTo(String value) {
+        public Criteria andForwardingNumEqualTo(Integer value) {
             addCriterion("forwarding_num =", value, "forwardingNum");
             return (Criteria) this;
         }
 
-        public Criteria andForwardingNumNotEqualTo(String value) {
+        public Criteria andForwardingNumNotEqualTo(Integer value) {
             addCriterion("forwarding_num <>", value, "forwardingNum");
             return (Criteria) this;
         }
 
-        public Criteria andForwardingNumGreaterThan(String value) {
+        public Criteria andForwardingNumGreaterThan(Integer value) {
             addCriterion("forwarding_num >", value, "forwardingNum");
             return (Criteria) this;
         }
 
-        public Criteria andForwardingNumGreaterThanOrEqualTo(String value) {
+        public Criteria andForwardingNumGreaterThanOrEqualTo(Integer value) {
             addCriterion("forwarding_num >=", value, "forwardingNum");
             return (Criteria) this;
         }
 
-        public Criteria andForwardingNumLessThan(String value) {
+        public Criteria andForwardingNumLessThan(Integer value) {
             addCriterion("forwarding_num <", value, "forwardingNum");
             return (Criteria) this;
         }
 
-        public Criteria andForwardingNumLessThanOrEqualTo(String value) {
+        public Criteria andForwardingNumLessThanOrEqualTo(Integer value) {
             addCriterion("forwarding_num <=", value, "forwardingNum");
             return (Criteria) this;
         }
 
-        public Criteria andForwardingNumLike(String value) {
-            addCriterion("forwarding_num like", value, "forwardingNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andForwardingNumNotLike(String value) {
-            addCriterion("forwarding_num not like", value, "forwardingNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andForwardingNumIn(List<String> values) {
+        public Criteria andForwardingNumIn(List<Integer> values) {
             addCriterion("forwarding_num in", values, "forwardingNum");
             return (Criteria) this;
         }
 
-        public Criteria andForwardingNumNotIn(List<String> values) {
+        public Criteria andForwardingNumNotIn(List<Integer> values) {
             addCriterion("forwarding_num not in", values, "forwardingNum");
             return (Criteria) this;
         }
 
-        public Criteria andForwardingNumBetween(String value1, String value2) {
+        public Criteria andForwardingNumBetween(Integer value1, Integer value2) {
             addCriterion("forwarding_num between", value1, value2, "forwardingNum");
             return (Criteria) this;
         }
 
-        public Criteria andForwardingNumNotBetween(String value1, String value2) {
+        public Criteria andForwardingNumNotBetween(Integer value1, Integer value2) {
             addCriterion("forwarding_num not between", value1, value2, "forwardingNum");
             return (Criteria) this;
         }
@@ -968,63 +948,173 @@ public class WxArticleExample extends GenericExample<Criteria> {
             return (Criteria) this;
         }
 
-        public Criteria andCommentNumEqualTo(String value) {
+        public Criteria andCommentNumEqualTo(Integer value) {
             addCriterion("comment_num =", value, "commentNum");
             return (Criteria) this;
         }
 
-        public Criteria andCommentNumNotEqualTo(String value) {
+        public Criteria andCommentNumNotEqualTo(Integer value) {
             addCriterion("comment_num <>", value, "commentNum");
             return (Criteria) this;
         }
 
-        public Criteria andCommentNumGreaterThan(String value) {
+        public Criteria andCommentNumGreaterThan(Integer value) {
             addCriterion("comment_num >", value, "commentNum");
             return (Criteria) this;
         }
 
-        public Criteria andCommentNumGreaterThanOrEqualTo(String value) {
+        public Criteria andCommentNumGreaterThanOrEqualTo(Integer value) {
             addCriterion("comment_num >=", value, "commentNum");
             return (Criteria) this;
         }
 
-        public Criteria andCommentNumLessThan(String value) {
+        public Criteria andCommentNumLessThan(Integer value) {
             addCriterion("comment_num <", value, "commentNum");
             return (Criteria) this;
         }
 
-        public Criteria andCommentNumLessThanOrEqualTo(String value) {
+        public Criteria andCommentNumLessThanOrEqualTo(Integer value) {
             addCriterion("comment_num <=", value, "commentNum");
             return (Criteria) this;
         }
 
-        public Criteria andCommentNumLike(String value) {
-            addCriterion("comment_num like", value, "commentNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentNumNotLike(String value) {
-            addCriterion("comment_num not like", value, "commentNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentNumIn(List<String> values) {
+        public Criteria andCommentNumIn(List<Integer> values) {
             addCriterion("comment_num in", values, "commentNum");
             return (Criteria) this;
         }
 
-        public Criteria andCommentNumNotIn(List<String> values) {
+        public Criteria andCommentNumNotIn(List<Integer> values) {
             addCriterion("comment_num not in", values, "commentNum");
             return (Criteria) this;
         }
 
-        public Criteria andCommentNumBetween(String value1, String value2) {
+        public Criteria andCommentNumBetween(Integer value1, Integer value2) {
             addCriterion("comment_num between", value1, value2, "commentNum");
             return (Criteria) this;
         }
 
-        public Criteria andCommentNumNotBetween(String value1, String value2) {
+        public Criteria andCommentNumNotBetween(Integer value1, Integer value2) {
             addCriterion("comment_num not between", value1, value2, "commentNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexSortIsNull() {
+            addCriterion("index_sort is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexSortIsNotNull() {
+            addCriterion("index_sort is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexSortEqualTo(Integer value) {
+            addCriterion("index_sort =", value, "indexSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexSortNotEqualTo(Integer value) {
+            addCriterion("index_sort <>", value, "indexSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexSortGreaterThan(Integer value) {
+            addCriterion("index_sort >", value, "indexSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexSortGreaterThanOrEqualTo(Integer value) {
+            addCriterion("index_sort >=", value, "indexSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexSortLessThan(Integer value) {
+            addCriterion("index_sort <", value, "indexSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexSortLessThanOrEqualTo(Integer value) {
+            addCriterion("index_sort <=", value, "indexSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexSortIn(List<Integer> values) {
+            addCriterion("index_sort in", values, "indexSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexSortNotIn(List<Integer> values) {
+            addCriterion("index_sort not in", values, "indexSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexSortBetween(Integer value1, Integer value2) {
+            addCriterion("index_sort between", value1, value2, "indexSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexSortNotBetween(Integer value1, Integer value2) {
+            addCriterion("index_sort not between", value1, value2, "indexSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNumIsNull() {
+            addCriterion("like_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNumIsNotNull() {
+            addCriterion("like_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNumEqualTo(Integer value) {
+            addCriterion("like_num =", value, "likeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNumNotEqualTo(Integer value) {
+            addCriterion("like_num <>", value, "likeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNumGreaterThan(Integer value) {
+            addCriterion("like_num >", value, "likeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("like_num >=", value, "likeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNumLessThan(Integer value) {
+            addCriterion("like_num <", value, "likeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNumLessThanOrEqualTo(Integer value) {
+            addCriterion("like_num <=", value, "likeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNumIn(List<Integer> values) {
+            addCriterion("like_num in", values, "likeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNumNotIn(List<Integer> values) {
+            addCriterion("like_num not in", values, "likeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNumBetween(Integer value1, Integer value2) {
+            addCriterion("like_num between", value1, value2, "likeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLikeNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("like_num not between", value1, value2, "likeNum");
             return (Criteria) this;
         }
 

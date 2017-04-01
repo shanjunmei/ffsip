@@ -548,62 +548,52 @@ public class CompanyExample extends GenericExample<Criteria> {
             return (Criteria) this;
         }
 
-        public Criteria andArticleNumEqualTo(String value) {
+        public Criteria andArticleNumEqualTo(Integer value) {
             addCriterion("article_num =", value, "articleNum");
             return (Criteria) this;
         }
 
-        public Criteria andArticleNumNotEqualTo(String value) {
+        public Criteria andArticleNumNotEqualTo(Integer value) {
             addCriterion("article_num <>", value, "articleNum");
             return (Criteria) this;
         }
 
-        public Criteria andArticleNumGreaterThan(String value) {
+        public Criteria andArticleNumGreaterThan(Integer value) {
             addCriterion("article_num >", value, "articleNum");
             return (Criteria) this;
         }
 
-        public Criteria andArticleNumGreaterThanOrEqualTo(String value) {
+        public Criteria andArticleNumGreaterThanOrEqualTo(Integer value) {
             addCriterion("article_num >=", value, "articleNum");
             return (Criteria) this;
         }
 
-        public Criteria andArticleNumLessThan(String value) {
+        public Criteria andArticleNumLessThan(Integer value) {
             addCriterion("article_num <", value, "articleNum");
             return (Criteria) this;
         }
 
-        public Criteria andArticleNumLessThanOrEqualTo(String value) {
+        public Criteria andArticleNumLessThanOrEqualTo(Integer value) {
             addCriterion("article_num <=", value, "articleNum");
             return (Criteria) this;
         }
 
-        public Criteria andArticleNumLike(String value) {
-            addCriterion("article_num like", value, "articleNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andArticleNumNotLike(String value) {
-            addCriterion("article_num not like", value, "articleNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andArticleNumIn(List<String> values) {
+        public Criteria andArticleNumIn(List<Integer> values) {
             addCriterion("article_num in", values, "articleNum");
             return (Criteria) this;
         }
 
-        public Criteria andArticleNumNotIn(List<String> values) {
+        public Criteria andArticleNumNotIn(List<Integer> values) {
             addCriterion("article_num not in", values, "articleNum");
             return (Criteria) this;
         }
 
-        public Criteria andArticleNumBetween(String value1, String value2) {
+        public Criteria andArticleNumBetween(Integer value1, Integer value2) {
             addCriterion("article_num between", value1, value2, "articleNum");
             return (Criteria) this;
         }
 
-        public Criteria andArticleNumNotBetween(String value1, String value2) {
+        public Criteria andArticleNumNotBetween(Integer value1, Integer value2) {
             addCriterion("article_num not between", value1, value2, "articleNum");
             return (Criteria) this;
         }

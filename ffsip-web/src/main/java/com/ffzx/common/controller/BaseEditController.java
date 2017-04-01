@@ -27,9 +27,7 @@ public abstract class BaseEditController<T, PK> extends CoreController {
     }
 
 
-    protected <T> T getParameter(String key) {
-        return WebUtils.getRequestParameter(key);
-    }
+
 
     protected User getCurrentUser() {
         return WebUtils.getSessionAttribute("loginUser");

@@ -238,14 +238,14 @@ if (typeof FFZX == 'undefined') {
 			var strSelected = $this.attr('data-selected');
 			var arrSelected = (typeof strSelected != 'undefined') ? strSelected.split(',') : [];
 			var strPlaceholder = $this.attr('data-hint');
-			strPlaceholder = (typeof strPlaceholder != 'undefined') ? '<option value="">'+ strPlaceholder +'</option>' : '';
-
+			strPlaceholder = (typeof strPlaceholder != 'undefined') ? '<option value="">'+ strPlaceholder +'</option>' : '';			
+				
+			if (arrSelected.length > 1) {
+				$this.attr('multiple', true);
+			}
+			
 			if (typeof strOption != 'undefined') {
-				
-				if (arrSelected.length > 1) {
-					$this.attr('multiple', true);
-				}
-				
+			
 				$.each($.parseJSON(strOption), function(idx, ele){
 					var selected = '';
 					
@@ -254,25 +254,25 @@ if (typeof FFZX == 'undefined') {
 					}
 					arrOption.push('<option value="'+ ele.value +'" '+ selected +'>'+ ele.label +'</option>');
 				});
+			}
+			
+			$this.append(strPlaceholder + arrOption.join(''));
+			$this.width($this.outerWidth() + 20);
+
+			if ($this.attr('multiple') == 'multiple') {
+
+				requirejs(['bs/multiselect'], function() {
+					$this.multiselect();
+				});
 				
-				$this.append(strPlaceholder + arrOption.join(''));
-				$this.width($this.outerWidth() + 20);
-
-				if ($this.attr('multiple') == 'multiple') {
-
-					requirejs(['bs/multiselect'], function() {
-						$this.multiselect();
+			} else {
+				
+				requirejs(['ff/select2'], function() {
+					$this.select2({
+						//allowClear: true,
+						//maximumSelectionLength: 1,
 					});
-					
-				} else {
-					
-					requirejs(['ff/select2'], function() {
-						$this.select2({
-							//allowClear: true,
-							//maximumSelectionLength: 1,
-						});
-					});					
-				}
+				});					
 			}			
 		});
 		

@@ -48,9 +48,10 @@
                 div_id: 'data_list',
                 url: rootPath + "/Member/queryData.do",
                 columns: [
-                    {data: "name", label: '用户名称', class: 'text-nowrap'},
+                    {data: "code", label: '会员编码', class: 'text-nowrap'},
+                    {data: "name", label: '会员名称', class: 'text-nowrap'},
                     {data: "wxNickName", label: '昵称', class: 'text-nowrap'},
-                    {data: "phone", label: '用户手机', class: 'text-nowrap'},
+                    {data: "phone", label: '会员手机', class: 'text-nowrap'},
                     {
                         data: "createDate",
                         label: '注册时间',

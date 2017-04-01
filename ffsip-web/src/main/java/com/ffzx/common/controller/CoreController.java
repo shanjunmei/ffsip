@@ -1,6 +1,7 @@
 package com.ffzx.common.controller;
 
 import com.ffzx.common.utils.DateEditor;
+import com.ffzx.common.utils.WebUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,7 @@ public abstract class CoreController {
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         // String类型转换，将所有传递进来的String进行HTML编码，防止XSS攻击
-        binder.registerCustomEditor(String.class, new PropertyEditorSupport() {
+    /*    binder.registerCustomEditor(String.class, new PropertyEditorSupport() {
             @Override
             public String getAsText() {
                 Object value = getValue();
@@ -29,8 +30,12 @@ public abstract class CoreController {
             public void setAsText(String text) {
                 setValue(text == null ? null : StringEscapeUtils.escapeHtml4(text.trim()));
             }
-        });
+        });*/
 
         binder.registerCustomEditor(Date.class, new DateEditor());
+    }
+
+    protected <T> T getParameter(String key) {
+        return WebUtils.getRequestParameter(key);
     }
 }

@@ -22,6 +22,24 @@ public class Member extends BaseEntity {
     private String password;
 
     /**
+     * 粉丝数
+     */
+    @Column(name = "fans_num")
+    private Integer fansNum;
+
+    /**
+     * 关注数
+     */
+    @Column(name = "subscribe_num")
+    private Integer subscribeNum;
+
+    /**
+     * 文章数
+     */
+    @Column(name = "article_num")
+    private Integer articleNum;
+
+    /**
      * 头像
      */
     @Column(name = "wx_headimgurl")
@@ -115,6 +133,60 @@ public class Member extends BaseEntity {
      */
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    /**
+     * 获取粉丝数
+     *
+     * @return fans_num - 粉丝数
+     */
+    public Integer getFansNum() {
+        return fansNum;
+    }
+
+    /**
+     * 设置粉丝数
+     *
+     * @param fansNum 粉丝数
+     */
+    public void setFansNum(Integer fansNum) {
+        this.fansNum = fansNum;
+    }
+
+    /**
+     * 获取关注数
+     *
+     * @return subscribe_num - 关注数
+     */
+    public Integer getSubscribeNum() {
+        return subscribeNum;
+    }
+
+    /**
+     * 设置关注数
+     *
+     * @param subscribeNum 关注数
+     */
+    public void setSubscribeNum(Integer subscribeNum) {
+        this.subscribeNum = subscribeNum;
+    }
+
+    /**
+     * 获取文章数
+     *
+     * @return article_num - 文章数
+     */
+    public Integer getArticleNum() {
+        return articleNum;
+    }
+
+    /**
+     * 设置文章数
+     *
+     * @param articleNum 文章数
+     */
+    public void setArticleNum(Integer articleNum) {
+        this.articleNum = articleNum;
     }
 
     /**

@@ -74,8 +74,7 @@
             <mvc:exclude-mapping path="/OpenApi/**"/>
             <mvc:exclude-mapping path="/Checktoken.do"/>
             <mvc:exclude-mapping path="/Oauth.do"/>
-            <mvc:exclude-mapping path="/FileRepo/file.do"/>
-            <mvc:exclude-mapping path="/OpenApi/**"/>
+
 
             <mvc:exclude-mapping path="/Signin.html"/>
             <mvc:exclude-mapping path="/css/*" />

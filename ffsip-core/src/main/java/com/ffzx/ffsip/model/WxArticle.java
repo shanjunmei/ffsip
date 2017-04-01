@@ -55,19 +55,31 @@ public class WxArticle extends BaseEntity {
      * 阅读数
      */
     @Column(name = "reading_num")
-    private String readingNum;
+    private Integer readingNum;
 
     /**
      * 转发数
      */
     @Column(name = "forwarding_num")
-    private String forwardingNum;
+    private Integer forwardingNum;
 
     /**
      * 评论数
      */
     @Column(name = "comment_num")
-    private String commentNum;
+    private Integer commentNum;
+
+    /**
+     * 首页排序
+     */
+    @Column(name = "index_sort")
+    private Integer indexSort;
+
+    /**
+     * 点赞数
+     */
+    @Column(name = "like_num")
+    private Integer likeNum;
 
     /**
      * 内容
@@ -241,7 +253,7 @@ public class WxArticle extends BaseEntity {
      *
      * @return reading_num - 阅读数
      */
-    public String getReadingNum() {
+    public Integer getReadingNum() {
         return readingNum;
     }
 
@@ -250,8 +262,8 @@ public class WxArticle extends BaseEntity {
      *
      * @param readingNum 阅读数
      */
-    public void setReadingNum(String readingNum) {
-        this.readingNum = readingNum == null ? null : readingNum.trim();
+    public void setReadingNum(Integer readingNum) {
+        this.readingNum = readingNum;
     }
 
     /**
@@ -259,7 +271,7 @@ public class WxArticle extends BaseEntity {
      *
      * @return forwarding_num - 转发数
      */
-    public String getForwardingNum() {
+    public Integer getForwardingNum() {
         return forwardingNum;
     }
 
@@ -268,8 +280,8 @@ public class WxArticle extends BaseEntity {
      *
      * @param forwardingNum 转发数
      */
-    public void setForwardingNum(String forwardingNum) {
-        this.forwardingNum = forwardingNum == null ? null : forwardingNum.trim();
+    public void setForwardingNum(Integer forwardingNum) {
+        this.forwardingNum = forwardingNum;
     }
 
     /**
@@ -277,7 +289,7 @@ public class WxArticle extends BaseEntity {
      *
      * @return comment_num - 评论数
      */
-    public String getCommentNum() {
+    public Integer getCommentNum() {
         return commentNum;
     }
 
@@ -286,8 +298,44 @@ public class WxArticle extends BaseEntity {
      *
      * @param commentNum 评论数
      */
-    public void setCommentNum(String commentNum) {
-        this.commentNum = commentNum == null ? null : commentNum.trim();
+    public void setCommentNum(Integer commentNum) {
+        this.commentNum = commentNum;
+    }
+
+    /**
+     * 获取首页排序
+     *
+     * @return index_sort - 首页排序
+     */
+    public Integer getIndexSort() {
+        return indexSort;
+    }
+
+    /**
+     * 设置首页排序
+     *
+     * @param indexSort 首页排序
+     */
+    public void setIndexSort(Integer indexSort) {
+        this.indexSort = indexSort;
+    }
+
+    /**
+     * 获取点赞数
+     *
+     * @return like_num - 点赞数
+     */
+    public Integer getLikeNum() {
+        return likeNum;
+    }
+
+    /**
+     * 设置点赞数
+     *
+     * @param likeNum 点赞数
+     */
+    public void setLikeNum(Integer likeNum) {
+        this.likeNum = likeNum;
     }
 
     /**

@@ -76,6 +76,8 @@
         <!-- 监控数据库 -->
         <!-- <property name="filters" value="stat" /> -->
         <property name="filters" value="mergeStat"/>
+        <!-- utf8mb4 -->
+        <property name="connectionInitSqls" value="set names utf8mb4;"/>
     </bean>
     <bean id="dataSourcejdbc" class="com.ffzx.commerce.framework.dao.DynamicRoutingDataSource">
         <property name="defaultTargetDataSource">

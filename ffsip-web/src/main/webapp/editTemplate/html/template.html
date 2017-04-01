@@ -828,7 +828,7 @@
         bpEndEditMode();
         contentText = $('#baopingPreview_content_container').html();
 
-        $.post("/ffsip-web/OpenApi/addArticle.do", {
+        $.post("/ffsip-web/WxArticle/addArticle.do", {
             "title": title,
             "classify": classify,
             "classifyId": classifyId,

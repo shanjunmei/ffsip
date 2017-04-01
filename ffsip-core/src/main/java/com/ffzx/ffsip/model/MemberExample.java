@@ -398,6 +398,186 @@ public class MemberExample extends GenericExample<Criteria> {
             return (Criteria) this;
         }
 
+        public Criteria andFansNumIsNull() {
+            addCriterion("fans_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFansNumIsNotNull() {
+            addCriterion("fans_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFansNumEqualTo(Integer value) {
+            addCriterion("fans_num =", value, "fansNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andFansNumNotEqualTo(Integer value) {
+            addCriterion("fans_num <>", value, "fansNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andFansNumGreaterThan(Integer value) {
+            addCriterion("fans_num >", value, "fansNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andFansNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("fans_num >=", value, "fansNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andFansNumLessThan(Integer value) {
+            addCriterion("fans_num <", value, "fansNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andFansNumLessThanOrEqualTo(Integer value) {
+            addCriterion("fans_num <=", value, "fansNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andFansNumIn(List<Integer> values) {
+            addCriterion("fans_num in", values, "fansNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andFansNumNotIn(List<Integer> values) {
+            addCriterion("fans_num not in", values, "fansNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andFansNumBetween(Integer value1, Integer value2) {
+            addCriterion("fans_num between", value1, value2, "fansNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andFansNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("fans_num not between", value1, value2, "fansNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubscribeNumIsNull() {
+            addCriterion("subscribe_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubscribeNumIsNotNull() {
+            addCriterion("subscribe_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubscribeNumEqualTo(Integer value) {
+            addCriterion("subscribe_num =", value, "subscribeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubscribeNumNotEqualTo(Integer value) {
+            addCriterion("subscribe_num <>", value, "subscribeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubscribeNumGreaterThan(Integer value) {
+            addCriterion("subscribe_num >", value, "subscribeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubscribeNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("subscribe_num >=", value, "subscribeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubscribeNumLessThan(Integer value) {
+            addCriterion("subscribe_num <", value, "subscribeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubscribeNumLessThanOrEqualTo(Integer value) {
+            addCriterion("subscribe_num <=", value, "subscribeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubscribeNumIn(List<Integer> values) {
+            addCriterion("subscribe_num in", values, "subscribeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubscribeNumNotIn(List<Integer> values) {
+            addCriterion("subscribe_num not in", values, "subscribeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubscribeNumBetween(Integer value1, Integer value2) {
+            addCriterion("subscribe_num between", value1, value2, "subscribeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubscribeNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("subscribe_num not between", value1, value2, "subscribeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNumIsNull() {
+            addCriterion("article_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNumIsNotNull() {
+            addCriterion("article_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNumEqualTo(Integer value) {
+            addCriterion("article_num =", value, "articleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNumNotEqualTo(Integer value) {
+            addCriterion("article_num <>", value, "articleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNumGreaterThan(Integer value) {
+            addCriterion("article_num >", value, "articleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("article_num >=", value, "articleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNumLessThan(Integer value) {
+            addCriterion("article_num <", value, "articleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNumLessThanOrEqualTo(Integer value) {
+            addCriterion("article_num <=", value, "articleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNumIn(List<Integer> values) {
+            addCriterion("article_num in", values, "articleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNumNotIn(List<Integer> values) {
+            addCriterion("article_num not in", values, "articleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNumBetween(Integer value1, Integer value2) {
+            addCriterion("article_num between", value1, value2, "articleNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("article_num not between", value1, value2, "articleNum");
+            return (Criteria) this;
+        }
+
         public Criteria andWxHeadimgurlIsNull() {
             addCriterion("wx_headimgurl is null");
             return (Criteria) this;

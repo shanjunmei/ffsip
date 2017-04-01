@@ -64,22 +64,34 @@ public class WxMessageCoreService {
 
 
             Member member = memberService.findByOpenId(fromUserName);
+            int state = 0;//0 不动，1 创建， 2 修改
+            Map<String, String> userInfo = null;
             if (member == null) {
+                state = 1;
                 member = new Member();
                 member.setWxOpenid(fromUserName);
-                Map<String, String> userInfo = wechatApiService.getWxUserInfo(fromUserName);
+            } else {
+                if ((new Date().getTime() - member.getLastUpdateDate().getTime()) > 24 * 3600 * 1000) {//超过一天未更新则更新，防止每次更新，调用超限
+                    state = 2;
+                }
+            }
+
+            if (state != 0) {
+                userInfo = wechatApiService.getWxUserInfo(fromUserName);
                 String nickName = userInfo.get("nickname");
                 String headPic = userInfo.get("headimgurl");
+                String coutry=userInfo.get("country");
+                String province=userInfo.get("province");
+                String city=userInfo.get("city");
+
                 member.setWxHeadimgurl(headPic);
                 member.setWxNickName(nickName);
-                memberService.add(member);
-            } else {
-                if((new Date().getTime()-member.getLastUpdateDate().getTime())>24*3600*1000){//超过一天未更新则更新，防止每次更新，调用超限
-                    Map<String, String> userInfo = wechatApiService.getWxUserInfo(fromUserName);
-                    String nickName = userInfo.get("nickname");
-                    String headPic = userInfo.get("headimgurl");
-                    member.setWxHeadimgurl(headPic);
-                    member.setWxNickName(nickName);
+                member.setWxCountry(coutry);
+                member.setWxProvince(province);
+                member.setWxCity(city);
+                if (state == 1) {
+                    memberService.add(member);
+                } else if (state == 2) {
                     memberService.updateSelective(member);
                 }
             }
@@ -93,14 +105,14 @@ public class WxMessageCoreService {
             textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 
             String content = null;
-            String title=null;
+            String title = null;
 
             // 文本消息
             if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
                 String url = requestMap.get("Content");
-                Map<String,String> result=articlePreEditService.tryCreateEditArticle(url, member.getCode());
-                content =result.get("url");
-                title=result.get("title");
+                Map<String, String> result = articlePreEditService.tryCreateEditArticle(url, member.getCode());
+                content = result.get("url");
+                title = result.get("title");
             }
             // 图片消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
@@ -125,9 +137,9 @@ public class WxMessageCoreService {
             // 链接消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LINK)) {
                 String url = requestMap.get("Url");
-                Map<String,String> result=articlePreEditService.tryCreateEditArticle(url, member.getCode());
-                content =result.get("url");
-                title=result.get("title");
+                Map<String, String> result = articlePreEditService.tryCreateEditArticle(url, member.getCode());
+                content = result.get("url");
+                title = result.get("title");
 
             }
             // 事件推送
@@ -158,7 +170,7 @@ public class WxMessageCoreService {
             // 设置文本消息的内容
             if (StringUtils.isNotBlank(content)) {
 
-                title = "文章编辑:"+title;
+                title = "文章编辑:" + title;
                 respContent = "<a href=\"" + content + "\">" + title + "</a>";
                 textMessage.setContent(respContent);
                 respXml = MessageUtil.messageToXml(textMessage);
@@ -170,9 +182,9 @@ public class WxMessageCoreService {
         } catch (Exception e) {
             logger.info("msg fail", e);
         }
-      //  logger.info("回复内容：{}", respXml);
-        if(respXml==null){
-            respXml="";
+        //  logger.info("回复内容：{}", respXml);
+        if (respXml == null) {
+            respXml = "";
         }
         return respXml;
     }

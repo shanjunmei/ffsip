@@ -37,7 +37,7 @@ public class Company extends BaseEntity {
      * 文章数
      */
     @Column(name = "article_num")
-    private String articleNum;
+    private Integer articleNum;
 
     /**
      * 介绍
@@ -139,7 +139,7 @@ public class Company extends BaseEntity {
      *
      * @return article_num - 文章数
      */
-    public String getArticleNum() {
+    public Integer getArticleNum() {
         return articleNum;
     }
 
@@ -148,8 +148,8 @@ public class Company extends BaseEntity {
      *
      * @param articleNum 文章数
      */
-    public void setArticleNum(String articleNum) {
-        this.articleNum = articleNum == null ? null : articleNum.trim();
+    public void setArticleNum(Integer articleNum) {
+        this.articleNum = articleNum;
     }
 
     /**
