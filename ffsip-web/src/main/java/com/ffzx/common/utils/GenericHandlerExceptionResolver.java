@@ -49,11 +49,7 @@ public class GenericHandlerExceptionResolver implements HandlerExceptionResolver
             return new ModelAndView(new MappingJackson2JsonView(), ret);
 
         } else {
-            HashMap model = new HashMap();
-            model.put("errorCode", errorCode);
-            model.put("errorMassage", errorMassage);
-
-            return ex instanceof RuntimeException ? new ModelAndView("error/500", model) : new ModelAndView("error/500", model);
+            throw new RuntimeException(ex);
         }
     }
 }

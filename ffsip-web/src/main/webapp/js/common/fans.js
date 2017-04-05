@@ -76,7 +76,7 @@ function doFollow(userObj,obj) {
  						img = user.company.logoImg;						
  					}
  					str += 	'<li>'+					
- 					'<div class="user-info"><div onclick="location.href = \'${BasePath}/WxArticle/list.do?memberCode='+user.member.code+'\'">'+
+ 					'<div class="user-info"><div onclick="location.href = \''+BasePath+'/WxArticle/list.do?memberCode='+user.member.code+'\'">'+
  		            '<div class="avatar" style="background-image: url(\''+img+'\');"></div>'+
  		            '<div class="info">'+
  		            '    <p class="name">'+name+'</p>';		            
@@ -131,7 +131,7 @@ function doFollow(userObj,obj) {
  						img = user.company.logoImg;						
  					}
  					str += 	'<li>'+					
- 					'<div class="user-info"><div onclick="location.href = \'${BasePath}/WxArticle/list.do?memberCode='+user.member.code+'\'">'+
+ 					'<div class="user-info"><div onclick="location.href = \''+BasePath+'/WxArticle/list.do?memberCode='+user.member.code+'\'">'+
  		            '<div class="avatar" style="background-image: url(\''+img+'\');"></div>'+
  		            '<div class="info">'+
  		            '    <p class="name">'+name+'</p>';		            

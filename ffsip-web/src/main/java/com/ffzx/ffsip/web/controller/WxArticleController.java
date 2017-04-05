@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.ffzx.ffsip.search.IndexService;
+import com.ffzx.ffsip.search.WxArticleIndexService;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,7 +28,6 @@ import com.ffzx.ffsip.model.FansExample;
 import com.ffzx.ffsip.model.Member;
 import com.ffzx.ffsip.model.WxArticle;
 import com.ffzx.ffsip.model.WxArticleExample;
-import com.ffzx.ffsip.model.WxArticleExample.Criteria;
 import com.ffzx.ffsip.model.WxEditArticle;
 import com.ffzx.ffsip.service.CommentService;
 import com.ffzx.ffsip.service.CompanyService;
@@ -74,7 +73,7 @@ public class WxArticleController extends BaseController<WxArticle, String, WxArt
 	private CommentService commentService;
 
     @Resource
-    private IndexService indexService;
+    private WxArticleIndexService wxArticleIndexService;
 	
 
     @Override
@@ -323,7 +322,7 @@ public class WxArticleController extends BaseController<WxArticle, String, WxArt
 
         Map<String, String> ret = new HashMap<>();
         if (i > 0) {
-            indexService.buildIndex(article);
+            wxArticleIndexService.buildIndex(article);
             String url = "http://ffsip.ffzxnet.com/ffsip-web/WxArticle/detail.do?articleCode=" + article.getCode();
             ret.put("msg", "success");
             ret.put("returnStr", url);
