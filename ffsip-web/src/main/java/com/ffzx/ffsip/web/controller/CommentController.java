@@ -20,7 +20,7 @@ import com.ffzx.ffsip.service.WxArticleService;
 import com.ffzx.ffsip.util.JsonConverter;
 
 /**
- * 
+ * 评论
  * @author liujunjun
  * @time：2017年3月29日 下午5:42:43
  * @version 1.0.0

@@ -52,12 +52,12 @@
 					<div class="copyright-fold">
 			            <h3 id="copyright">版权声明</h3>
 			            <div class="copyright-con">
-			                	凡本网注明“来源：${member.name == null ? '非凡之星' : member.name}”的所有作品，
+			                	凡本网注明“来源：${company.name == null ? '非凡之星' : company.name}”的所有作品，
 			                	均为深圳市非凡之星网络科技有限公司合法拥有版权或有权使用的作品，欢迎转载，但在转载前须注明
-			                	“来源：${member.name == null ? '非凡之星' : member.name}”。
+			                	“来源：${company.name == null ? '非凡之星' : company.name}”。
 			                	未经本网授权不得利用除转载外的其它方式使用上述作品，违反本声明者，本网将追究其相关法律责任。
 			                <br>
-			                	凡本网注明“来源：XXX（非${member.name == null ? '非凡之星' : member.name}）”的作品，
+			                	凡本网注明“来源：XXX（非${company.name == null ? '非凡之星' : company.name}）”的作品，
 			                	均转载自其它媒体，转载目的在于传递更多信息，并不代表本网赞同其观点和对其真实性负责。
 			                <br>
 			                	本网充分尊重原作者的合法权益及相关利益，如所发布文章的原作者对其文章内容的使用或转载存在争议，
@@ -128,7 +128,7 @@
 			    <div class="section">
 			        <div class="section-head">
 			            <p class="left">评论</p>
-			            <p class="right">${article.commentNum*1 }</p>
+			            <p class="right" id="commentNum">${article.commentNum*1 }</p>
 			        </div>
 			        <div class="do-comment">
 			            <div class="edit-area" contenteditable="true" placeholder="写评论"></div>
@@ -136,45 +136,43 @@
 			            </div>
 			        </div>
 			        
-			        <div id="commentStr">
-			        <c:forEach items="${commentList }" var="comment">
 			        <div class="comment-list">
+			        <c:forEach items="${commentList }" var="comment">
 			            <div class="comment">
 			                <div class="row">
 			                    <p class="user">${comment.wxNickName}</p>
-			                    <div class="praise-count praised"><span></span>${comment.likeNum*1}</div>
+			                    <input type="hidden" id="${comment.code}Input" value="${comment.likeNum*1}">
+			                    <div class="praise-count praised" id="${comment.code}P" onclick="likeRecord('${comment.code }', 2)"><span></span>${comment.likeNum*1}</div>
 			                    <!--span是心形图标，点击后在父div上加样式praised，没有加，就没有这个样式-->
 			                </div>
 			                <p class="content">${comment.commentContent}</p>
-			            </div>			           
-			        </div>
-			        </c:forEach>
+			            </div>			  
+			        </c:forEach>		           
 			        </div>
 			        
 			        <div class="row" style="display: none;">
 			            <div class="big-btn fill-blue">更多内容</div>
 			        </div>
 			    </div>
-			    <!-- 
+
 			    <nav class="toolbar">
 			        <ul>
 			            <li class="input-bar">
-			                <input value="发布新内容" disabled="">
+<!-- 			                <input value="发布新内容" disabled=""> -->
 			            </li>
 			            <li class="cell">
+			                <span class="icon-comment "></span>
+			                <p id="commentNumP">${article.commentNum*1}</p>
+			            </li>
+			            <li class="cell" onclick="likeRecord('${article.code }', 1)">
+			                <span class="icon-star active" id="likeRecordSpan"></span>
+			                <p id="likeRecordP">${article.forwardingNum*1}</p>
+			            </li>
+			            <li class="cell" onclick="editArticle('${article.source }','${article.publisher }')">
 			                <span class="icon-menu"></span>
 			            </li>
-			            <li class="cell">
-			                <span class="icon-comment"></span>
-			                <p>0</p>
-			            </li>
-			            <li class="cell">
-			                <span class="icon-star active"></span>
-			                <p>1</p>
-			            </li>
 			        </ul>
-			    </nav> -->
-			    
+			    </nav>			    
 			    
 			</div>
 		</div>
@@ -185,10 +183,43 @@
 	$("#copyright").click(function(){
 		$(this).parent("div.copyright-fold").toggleClass("unfold");
 	});
-	
-    
+	    
     var doCommentFlag = true;
+    
+    //转发
+    function editArticle(code,publisher){    	
+    	if(user.code == publisher){
+    		return;
+    	}
+    	location.href = '${BasePath}/WxArticle/editArticle.do?code=' + code;
+    }
+    
+    //点赞
+    function likeRecord(article_or_comment, type){
+    	$.post("${BasePath}/likeRecord/addLikeRecord.do", {
+    		article_or_comment: article_or_comment,
+    		type: type
+        }, function (data) {
+            if (data.status == "success") {  
+            	if(data.infoData == 1){
+            		if(type == 1){
+   					 	$("#likeRecordP").html($("#likeRecordP").html()*1-1);    					 
+					 	$("#likeRecordSpan").attr("class","icon-star");  
+            		}
+            	}else{
+            		if(type == 1){
+					 	$("#likeRecordP").html($("#likeRecordP").html()*1+1);   					 
+					 	$("#likeRecordSpan").attr("class","icon-star active"); 
+            		}else{
+					 	$("#"+article_or_comment+"Input").val($("#"+article_or_comment+"Input").val()*1+1);
+					 	$("#"+article_or_comment+"P").html("<span></span>"+ $("#"+article_or_comment+"Input").val());
+            		}
+            	}
+            }
+        });
+    }
 	
+    //评论
      function doComment(articleCode) {
          if (!doCommentFlag) return;
          commentFlag = false;
@@ -211,11 +242,21 @@
                  commentFlag = false;
                  if (data.type == "fail") {
                 	 notify("发表评论失败");
-                 } else {
-//                      attach({
-//                          '+commentList': data.commentList
-//                      });
+                 } else {          
+                	 var comment = JSON.parse(data.infoData);                	 
+					 $("#commentNumP").html($("#commentNumP").html()*1+1);
+					 $("#commentNum").html($("#commentNum").html()*1+1);
                      $(".edit-area").text("");
+                     
+                     var htmlStr = '<div class="comment">'+
+		                '<div class="row">'+
+		                '    <p class="user">'+user.wxNickName+'</p>'+
+	                    '<input type="hidden" id="'+comment.code+'Input" value="0">'+
+	                    '<div class="praise-count praised" id="'+comment.code+'P" onclick="likeRecord(\''+comment.code+'\', 2)"><span></span>0</div>'+		                
+		                '</div>'+
+		                '<p class="content">'+content+'</p>'+
+		           		'</div>';
+                     $(".comment-list").prepend(htmlStr);
                      notify("发表评论成功");
                      doCommentFlag = true;
                  }

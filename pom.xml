@@ -18,7 +18,7 @@
 	<url>http://maven.apache.org</url>
 	
 	<modules>
-	
+		<module>ffsip-model</module>
 		<module>ffsip-core</module>
 		<module>ffsip-web</module>
 		<module>ffsip-admin</module>

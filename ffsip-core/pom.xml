@@ -13,6 +13,14 @@
     <name>ffsip-core</name>
     <url>http://maven.apache.org</url>
     <dependencies>
+	<!-- ffsip-core引用 -->
+        <dependency>
+            <groupId>com.ffzx.ffsip</groupId>
+            <artifactId>ffsip-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+	
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>

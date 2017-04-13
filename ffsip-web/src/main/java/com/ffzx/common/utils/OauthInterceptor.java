@@ -75,12 +75,26 @@ public class OauthInterceptor extends HandlerInterceptorAdapter {
         if (member == null&&isWechat) {
             String refer=request.getHeader("Referer");
             String baseUrl = request.getScheme() + "://" + request.getServerName()+request.getContextPath() + "/Signin.html"; //服务器地址
-            if(StringUtils.isNotBlank(refer)){
-                baseUrl=baseUrl+"?refer="+refer;
+            if(StringUtils.isBlank(refer)){
+                refer=request.getRequestURL().toString();
                 // String redirectUrl = URLEncoder.encode(baseUrl + "/ffsip-admin/Oauth.do", "utf-8");
-            }else{
-                baseUrl=baseUrl+"?refer="+request.getRequestURI();
             }
+            Map<String,String> params=request.getParameterMap();
+            String paraStr=null;
+            for (Map.Entry<String,String> e:params.entrySet()){
+                if(paraStr==null){
+                    paraStr="?";
+                }else{
+                    paraStr=paraStr+"&";
+                }
+                paraStr=paraStr+e.getKey()+"="+request.getParameter(e.getKey());
+            }
+            if(paraStr!=null){
+                refer=refer+paraStr;
+            }
+
+            baseUrl=baseUrl+"?refer="+refer;
+
             String redirectUrl = URLEncoder.encode(baseUrl, "utf-8");
         /*    logger.info("redirect url:{}",redirectUrl);*/
             String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + System.getProperty("wechat.appid") + "&redirect_uri=" + redirectUrl + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";

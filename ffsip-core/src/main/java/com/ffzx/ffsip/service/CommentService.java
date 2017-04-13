@@ -7,6 +7,6 @@ import com.ffzx.ffsip.model.Comment;
  * 评论服务类
  * Created by Administrator on 2017/1/17.
  */
-public interface CommentService extends BaseService<Comment,String>{
+public interface CommentService extends BaseService<Comment,String>,Marker{
 
 }

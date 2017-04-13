@@ -121,8 +121,16 @@ public class FansController extends BaseController<Fans, String, FansExample> {
 		Member subscribeMember =  memberService.findByCode(subscribeCode);			//被关注人  +粉丝数
 		Member fansMember =  memberService.findByCode(fansCode);					//粉丝	 +关注数
 		
-		subscribeMember.setFansNum(subscribeMember.getFansNum()+num);
-		fansMember.setSubscribeNum(fansMember.getSubscribeNum()+num);
+		if (subscribeMember.getFansNum() == null || "".equals(subscribeMember.getFansNum())) {
+			subscribeMember.setFansNum(1);
+        } else {
+    		subscribeMember.setFansNum(subscribeMember.getFansNum()+num);
+        }
+		if (fansMember.getSubscribeNum() == null || "".equals(fansMember.getSubscribeNum())) {
+			fansMember.setSubscribeNum(1);
+        } else {
+        	fansMember.setSubscribeNum(fansMember.getSubscribeNum()+num);
+        }		
 		memberService.updateSelective(subscribeMember);
 		memberService.updateSelective(fansMember);
 

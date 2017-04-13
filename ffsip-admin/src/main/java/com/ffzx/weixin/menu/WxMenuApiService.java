@@ -15,11 +15,11 @@ import java.util.*;
  * Created by Administrator on 2017/3/1.
  */
 @Component
-public class WxMenuService {
+public class WxMenuApiService {
 
     public static String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={ACCESS_TOKEN}";
 
-    private static Logger logger = LoggerFactory.getLogger(WxMenuService.class);
+    private static Logger logger = LoggerFactory.getLogger(WxMenuApiService.class);
 
     @Resource
     private WechatApiService wechatApiService;

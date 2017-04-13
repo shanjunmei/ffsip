@@ -43,6 +43,8 @@ public class WxArticleIndexService {
 
             // IndexWriter writer = getIndexWriter();
             for (WxArticle article : articles) {
+                indexService.removeIndex("article",article.getId());
+                wxArticleService.convertPublisher(article);
                 indexService.buildIndex(convert(article), "article");
             }
           /*  writer.flush();
@@ -55,6 +57,7 @@ public class WxArticleIndexService {
 
     public void buildIndex(WxArticle article) {
         try {
+            indexService.removeIndex("article",article.getId());
             indexService.buildIndex(convert(article), "article");
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -162,6 +165,9 @@ public class WxArticleIndexService {
                 String content = highlighter.getBestFragment(contentTokenStream, doc.get("content"));
                 if (StringUtils.isBlank(content)) {
                     content = doc.get("content");
+                    if(content.length()>200){
+                        content=content.substring(0,200);
+                    }
                 }
                 // String label = highlighter.getBestFragment(labelTokenStream, doc.get("label"));
 
@@ -182,5 +188,9 @@ public class WxArticleIndexService {
         return list;
     }
 
+
+    public void removeIndex(String id){
+        indexService.removeIndex("article",id);
+    }
 
 }

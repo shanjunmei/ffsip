@@ -16,7 +16,7 @@ public class WxMenuServiceTest extends TestBase {
     @Resource
     private WxMenuMapper wxMenuMapper;
     @Resource
-    private WxMenuService wxMenuService;
+    private WxMenuApiService wxMenuService;
 
     @org.junit.Test
     public void createMenu() throws Exception {
@@ -28,7 +28,7 @@ public class WxMenuServiceTest extends TestBase {
 
     @org.junit.Test
     public void createMenu1() throws Exception {
-        WxMenuService.createMenu();
+        WxMenuApiService.createMenu();
     }
 
 }

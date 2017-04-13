@@ -6,6 +6,6 @@ import com.ffzx.ffsip.model.User;
 /**
  * Created by Administrator on 2017/1/17.
  */
-public interface UserService extends BaseService<User,String>{
+public interface UserService extends BaseService<User,String>,Marker{
 
 }

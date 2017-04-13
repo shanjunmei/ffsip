@@ -1,14 +1,15 @@
 package com.ffzx.ffsip.web.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import com.ffzx.common.controller.BaseController;
+import com.ffzx.common.utils.ResultVo;
+import com.ffzx.common.utils.WebUtils;
+import com.ffzx.ffsip.model.*;
 import com.ffzx.ffsip.search.WxArticleIndexService;
+import com.ffzx.ffsip.service.*;
+import com.ffzx.ffsip.vo.ArticleInfo;
+import com.ffzx.ffsip.wechat.WechatApiService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,28 +18,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ffzx.common.controller.BaseController;
-import com.ffzx.common.utils.WebUtils;
-import com.ffzx.ffsip.model.Comment;
-import com.ffzx.ffsip.model.CommentExample;
-import com.ffzx.ffsip.model.Company;
-import com.ffzx.ffsip.model.CompanyExample;
-import com.ffzx.ffsip.model.Fans;
-import com.ffzx.ffsip.model.FansExample;
-import com.ffzx.ffsip.model.Member;
-import com.ffzx.ffsip.model.WxArticle;
-import com.ffzx.ffsip.model.WxArticleExample;
-import com.ffzx.ffsip.model.WxEditArticle;
-import com.ffzx.ffsip.service.CommentService;
-import com.ffzx.ffsip.service.CompanyService;
-import com.ffzx.ffsip.service.FansService;
-import com.ffzx.ffsip.service.MemberService;
-import com.ffzx.ffsip.service.WxArticleService;
-import com.ffzx.ffsip.service.WxEditArticleService;
-import com.ffzx.ffsip.vo.ArticleInfo;
-import com.ffzx.ffsip.wechat.WechatApiService;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 文章
@@ -300,6 +285,10 @@ public class WxArticleController extends BaseController<WxArticle, String, WxArt
     @RequestMapping("addArticle")
     @ResponseBody
     public Object addArticle(WxArticle article, HttpServletRequest request) {
+        Member loginMember = WebUtils.getSessionAttribute("loginMember");
+        if(loginMember == null){
+            return "redirect:" + getBasePath() + "/index.do";
+        }
         Document doc = Jsoup.parse(article.getContent());
 
         String sourceCode = request.getParameter("sourceCode");
@@ -310,8 +299,9 @@ public class WxArticleController extends BaseController<WxArticle, String, WxArt
         doc.title(article.getTitle());
         //logger.info("doc:{}",doc.toString());
         article.setContent(doc.toString());
-        article.setPublisher(wxEditArticle.getCreateBy());
-        article.setCreateBy(wxEditArticle.getCreateBy());
+        article.setSource(sourceCode);;
+        article.setPublisher(loginMember.getCode());
+        article.setCreateBy(loginMember.getCode());
         article.setCoverImg(previewPic);
        /* if(doc.select("img")!=null){
             article.setCoverImg(doc.select("img").get(0).attr("src"));
@@ -322,6 +312,7 @@ public class WxArticleController extends BaseController<WxArticle, String, WxArt
 
         Map<String, String> ret = new HashMap<>();
         if (i > 0) {
+            wxArticleService.convertPublisher(article);
             wxArticleIndexService.buildIndex(article);
             String url = "http://ffsip.ffzxnet.com/ffsip-web/WxArticle/detail.do?articleCode=" + article.getCode();
             ret.put("msg", "success");
@@ -334,12 +325,15 @@ public class WxArticleController extends BaseController<WxArticle, String, WxArt
             articleNum=articleNum+1;
             member.setArticleNum(articleNum);
             memberService.updateSelective(member);
+            WebUtils.setSessionAttribute("loginMember", member);
             wechatApiService.sendMsg(member.getWxOpenid(), "<a href=\"" + url + "\">" + article.getTitle() + "</a>");
         } else {
             ret.put("msg", "发布失败");
         }
         return ret;
     }
+
+
 
 
     @RequestMapping(value = "editArticle", produces = "text/html;charset=UTF-8")
@@ -378,9 +372,10 @@ public class WxArticleController extends BaseController<WxArticle, String, WxArt
             page = PageHelper.startPage(Integer.valueOf(indexStr), Integer.valueOf(sizeStr));
         }/*分页信息end*/
 
-        WxArticleExample example = new WxArticleExample();
-        example.setOrderByClause("last_update_date desc");
-        List<ArticleInfo> list = getService().findArticleInfo(example);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("fansCode", member.getCode());
+        params.put("orderByField", "last_update_date desc");
+        List<ArticleInfo> list = getService().getArticleInfoByList(getService().selectByPageFansCode(params));
 
         pageTotal = (int) page.getPages();
         modelMap.put("pageTotal", pageTotal);
@@ -398,6 +393,10 @@ public class WxArticleController extends BaseController<WxArticle, String, WxArt
     @RequestMapping("homeFocusLoad")
     @ResponseBody
     public Map<String, Object> homeFocusLoad(ModelMap modelMap) {
+        Member member = WebUtils.getSessionAttribute("loginMember");
+        if(member == null){
+            return null;
+        }
         Map<String, Object> map = new HashMap<String, Object>();
     	 /*分页信息begin*/
         String indexStr = (String) ((getParameter("pageIndex") == null) ? "1" : getParameter("pageIndex"));
@@ -408,9 +407,11 @@ public class WxArticleController extends BaseController<WxArticle, String, WxArt
             page = PageHelper.startPage(Integer.valueOf(indexStr), Integer.valueOf(sizeStr));
         }/*分页信息end*/
 
-        WxArticleExample example = new WxArticleExample();
-        example.setOrderByClause("last_update_date desc");
-        List<ArticleInfo> list = getService().findArticleInfo(example);
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("fansCode", member.getCode());
+        params.put("orderByField", "last_update_date desc");
+        List<ArticleInfo> list = getService().getArticleInfoByList(getService().selectByPageFansCode(params));
 
         pageTotal = (int) page.getPages();
         map.put("pageTotal", pageTotal);
@@ -461,4 +462,28 @@ public class WxArticleController extends BaseController<WxArticle, String, WxArt
 
         return "/search";
     }
+    
+	/**
+	 * 删除
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("goDelete")
+	@ResponseBody
+	public ResultVo goDelete(String id){		
+        ResultVo resultVo = new ResultVo();
+        Member member = WebUtils.getSessionAttribute("loginMember");
+        if(member == null || StringUtils.isEmpty(id)){
+			resultVo.setStatus("fail");
+			return resultVo;
+		}
+        
+        Integer articleNum=member.getArticleNum();
+        articleNum=articleNum-1;
+        member.setArticleNum(articleNum);
+        memberService.updateSelective(member);
+        WebUtils.setSessionAttribute("loginMember", member);        
+        wxArticleIndexService.removeIndex(id);
+		return this.delete(id);
+	}
 }

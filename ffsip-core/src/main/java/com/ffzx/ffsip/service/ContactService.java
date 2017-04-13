@@ -7,6 +7,6 @@ import com.ffzx.ffsip.model.Contact;
 /**
  * Created by Administrator on 2017/1/17.
  */
-public interface ContactService extends BaseService<Contact,String>{
+public interface ContactService extends BaseService<Contact,String>,Marker{
 
 }

@@ -99,7 +99,6 @@ requirejs.config({
 	baseUrl: PATH_BASE,
 	paths: {
 		// Vendor
-		'vue': 'js/vue/vue.min',
 		'avalon': 'js/avalon/avalon-1.5.5',
 		'text': 'js/require/text',
 		'css': 'js/require/css',

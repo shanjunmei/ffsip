@@ -1,11 +1,8 @@
 package com.ffzx.ffsip.admin.controller;
 
 import com.ffzx.common.controller.BaseController;
-import com.ffzx.ffsip.model.Member;
-import com.ffzx.ffsip.model.MemberExample;
 import com.ffzx.ffsip.model.WxMenu;
 import com.ffzx.ffsip.model.WxMenuExample;
-import com.ffzx.ffsip.service.MemberService;
 import com.ffzx.ffsip.service.WxMenuService;
 import com.ffzx.ffsip.util.JsonConverter;
 import org.springframework.stereotype.Controller;
@@ -29,7 +26,7 @@ public class WxMenuController extends BaseController<WxMenu, String, WxMenuExamp
 
 
     @Resource
-    private com.ffzx.weixin.menu.WxMenuService wxMenuService;
+    private com.ffzx.weixin.menu.WxMenuApiService wxMenuApiService;
 
     @Override
     public WxMenuService getService() {
@@ -41,7 +38,7 @@ public class WxMenuController extends BaseController<WxMenu, String, WxMenuExamp
     public Object publishWxMenu(){
         Map<String,Object> ret=new HashMap<>();
        List<WxMenu> menus= service.selectByExample(null);
-        String res= wxMenuService.createMenu(menus);
+        String res= wxMenuApiService.createMenu(menus);
         ret.put("code",0);
         logger.info("publish menu result:{}",res);
         Map result= JsonConverter.from(res,Map.class);

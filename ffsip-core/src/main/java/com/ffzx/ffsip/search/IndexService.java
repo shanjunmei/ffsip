@@ -5,10 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.*;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
@@ -97,5 +94,16 @@ public class IndexService {
         highlighter = new Highlighter(simpleHTMLFormatter, new QueryScorer(query));
         highlighter.setTextFragmenter(new SimpleFragmenter(50));
         return highlighter;
+    }
+
+    public void removeIndex(String type,String id){
+        try{
+        IndexWriter writer=getIndexWriter(type);
+        writer.deleteDocuments(new Term("id",id));
+        writer.forceMergeDeletes();
+        writer.close();
+        }catch (Exception e){
+            logger.info("remove {}:{} Index fail:",type,id);
+        }
     }
 }

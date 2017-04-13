@@ -6,6 +6,6 @@ import com.ffzx.ffsip.model.Menu;
 /**
  * Created by Administrator on 2017/1/17.
  */
-public interface MenuService extends BaseService<Menu,String>{
+public interface MenuService extends BaseService<Menu,String>,Marker{
 
 }

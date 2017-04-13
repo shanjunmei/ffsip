@@ -61,7 +61,7 @@
 					
 				<ul class="tabs i3" data-on-tab="moreData('',1)"><!--标签几个就加样式i几，比如说当前是三个标签，所以加样式i3-->
 				    <li tab=".art-0-last-10-tab" class="active" id="articleNumLi" onclick="showDiv('articleNum')"><!--当前，加样式active-->
-					    <p class="num">${member.articleNum*1}</p>
+					    <p class="num" id="articleNumP">${member.articleNum*1}</p>
 					    <p class="name">文章</p>
 				    </li>
 				    <li tab=".followed--last-10-tab" id="subscribeNumLi" onclick="showDiv('subscribeNum')">
@@ -106,7 +106,8 @@
 						<div class="art-list">
 							<ul id="ulhtml">
 								<c:forEach items="${list}" var="article" varStatus="vs">
-								<li class="article with-cover" onclick="location.href='${BasePath}/WxArticle/detail.do?articleCode=${article.code }'">
+								<li class="article with-cover" id="${article.id}"
+									 onclick="location.href='${BasePath}/WxArticle/detail.do?articleCode=${article.code }'">
 									<p class="title">${article.title }</p>
 									<p class="meta-list">
 										<span class="meta link" onclick="location.href='${BasePath}/WxArticle/list.do?memberCode=${member.code}'">
@@ -119,6 +120,9 @@
 										<span>评论${article.commentNum*1}</span>
 									</p>
 									<div class="cover" style="background-image: url('${article.coverImg}');"></div>
+									<c:if test="${memberCode == loginMember.code}">
+										<div class="rui-icon icon-more" aaa="${article.id}"><p>...</p></div>
+									</c:if>
 								</li>
 								</c:forEach>								
 							</ul>
@@ -130,14 +134,60 @@
 						</div>
 					</div>
 				</div>
-				
+				<!--通过display的属性值来定义是否显示，显示为display: block;     不显示为display: none;-->
+				<div class="popup">
+			        <div class="art-menu li-menu full bottom-transition" style="display: none;">
+			        	<input type="hidden" id="delId" value="">
+			            <ul>
+			                <!--<li>编辑</li>-->
+			                <li id="delLi">删除</li>
+			                <li class="cancel">取消</li>
+			            </ul>
+			        </div>
+			    </div>
 				
 			</div>
+			
+			
+			
 		</div>
 	</div>
+	
 </body>
 <input type="hidden" id="memberCode" value="${memberCode}">
 <script type="text/javascript">
+//隐藏操作
+$(".cancel").click(function(){
+	$(".bottom-transition").attr("style","display: none;");
+});
+
+$(".rui-icon").click(function(event){
+    event.stopPropagation();
+    $("#delId").val($(this).attr('aaa'));
+	$(".bottom-transition").attr("style","display: block;");
+});
+
+$("#delLi").click(function(event){
+    event.stopPropagation();
+    if(confirm("确认删除文章？")){
+	    var id = $("#delId").val();
+	    $.ajax({url:"${BasePath}/WxArticle/goDelete.do",
+			data:{'id':id},
+			async:false,
+			success: function(res){
+	            if (res.status == "fail") {
+	           	 	notify("删除失败，稍后重试");
+	            } else { 
+	            	$("#"+id).remove();
+	            	$(".bottom-transition").attr("style","display: none;");
+	            	$("#articleNumP").html($("#articleNumP").html()*1 - 1);
+	       	 		notify("删除成功！");
+	            }
+		     }
+		});	
+    }
+});
+
 var subscribeNum = 0;
 var fansNum = 0;
 function showDiv(divStr){			//切换主题卡
@@ -183,7 +233,7 @@ function loadMore(){			//分页
 			
 				$.each(res.list,function(n,article) {
 					
-					str += '<li class="article with-cover" onclick="location.href=\'${BasePath}/WxArticle/detail.do?articleCode='+article.code+'\'">'
+					str += '<li class="article with-cover"  id="'+article.id+'" onclick="location.href=\'${BasePath}/WxArticle/detail.do?articleCode='+article.code+'\'">'
 					+'<p class="title">'+article.title+'</p>'
 					+'<p class="meta-list">'
 					+'	<span class="meta link" onclick="location.href=\'${BasePath}/WxArticle/list.do?memberCode='+member.code+'\'">'
@@ -195,14 +245,24 @@ function loadMore(){			//分页
 					+'	<span>转发'+article.forwardingNum*1+'</span>'
 					+'	<span>评论'+article.commentNum*1+'</span>'
 					+'</p>'
-					+'<div class="cover" style="background-image: url(\''+article.coverImg+'\');"></div>'
-					+'</li>';
+					+'<div class="cover" style="background-image: url(\''+article.coverImg+'\');"></div>';
+					
+					if(memberCode == user.code){
+						str += '<div class="rui-icon icon-more"  aaa="'+article.id+'"><p>...</p></div>';
+					}
+					
+					str += '</li>';
 				});
 				$("#ulhtml").append(str);
 				$("#pageIndex").val(pageIndex);
 				if(pageIndex == pageTotal){
 					$("#articleA").attr("style","display: none;");
 				}
+				$(".rui-icon").click(function(event){
+				    event.stopPropagation();
+				    $("#delId").val($(this).attr('aaa'));
+					$(".bottom-transition").attr("style","display: block;");
+				});
 		     }
 		});		
 	}

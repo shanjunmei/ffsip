@@ -18,6 +18,7 @@
 	<!-- v2/ui -->
 	<link rel="stylesheet" href="${BasePath !}/asset/css/font-awesome.min.css?v=${ver !}">
 	<link rel="stylesheet" href="${BasePath !}/asset/v2/ui/css/bootstrap.css?v=${ver !}">
+	<link rel="stylesheet" href="${BasePath !}/asset/v2/lib/iview/css/iview.css?v=${ver !}">
 	<!-- 
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">	
 	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-pink.min.css" />
@@ -28,6 +29,8 @@
 		
 	<!-- 公共js  strat -->
 	<script src="${BasePath !}/asset/js/jquery-1.10.2.min.js?v=${ver !}"></script>
+	<script src="${BasePath !}/asset/v2/js/vue/vue.min.js?v=${ver !}"></script>
+	<script src="${BasePath !}/asset/v2/lib/iview/js/iview.min.js?v=${ver !}"></script>
 	<script src="${BasePath !}/asset/v2/js/require/require.js?v=${ver !}"></script>
 	<!-- 
 		https://github.com/requirejs/xrayquire 
@@ -41,7 +44,7 @@
 	</script>
 	<script src="${BasePath !}/asset/js/control/bootstrap/js/bootstrap.min.js?v=${ver !}"></script>
 	<script src="${BasePath !}/asset/js/control/ajax/js/ajaxUtils.js?v=${ver !}" type="text/javascript"></script>
-	<script src="${BasePath !}/asset/v2/ui/js/material.min.js?v=${ver !}"></script>
+	<!-- <script src="${BasePath !}/asset/v2/ui/js/material.min.js?v=${ver !}"></script> -->
 	<script src="${BasePath !}/asset/js/common/common.v2.js?v=${ver !}"></script>
 
 	<!-- v2/ui -->

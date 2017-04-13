@@ -35,9 +35,9 @@ if (typeof FFZX == 'undefined') {
 
 	var righttag = '<div class="currighttag md-loading md-loading-global"></div>';
 
-	FFZX.openPageTab = function(tabID, param){
-		
+	FFZX.openPageTab = function(_tabID, param){
 		var arrParam = [];
+		var tabID = (_tabID.indexOf(',') == -1) ? '#' + _tabID : encodeURIComponent(_tabID);
 		
 		if (typeof param != 'undefined') {
 			
@@ -46,9 +46,9 @@ if (typeof FFZX == 'undefined') {
 				arrParam.push(key + '=' + val);
 			});
 		}
-
-		top.postMessage(curIframeID + ',pageTab:#' + tabID + ':' + arrParam.join('&'), curIframeObj[1]);
-	}
+		top.postMessage(curIframeID + ',pageTab:' + tabID + ':' + arrParam.join('&'), curIframeObj[1]);
+		
+	};
 
 	$(function(){
 	
